@@ -10,8 +10,9 @@
     ],
     "delay": "3"
   },
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js --exec babel-node ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
