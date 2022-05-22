@@ -12,6 +12,22 @@ const schema = new Schema({
         required: true,
         trim: true,
         unique: true
+    },
+    birthday: {
+        type: Date,
+        required: true,
+        trim: true
+    },
+    cpf: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true
+    },
+    phoneNumber: {
+        type: Number,
+        required: true,
+        trim: true
     }
 })
 
