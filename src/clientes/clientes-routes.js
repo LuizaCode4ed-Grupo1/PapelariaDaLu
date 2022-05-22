@@ -26,4 +26,11 @@ router.get('/:_id', (req, res, next) => {
     .catch(next)
 })
 
+// Listar cliente por email
+router.get('/:_email', (req, res, next) => {
+    clienteController.listarClientesEmail(req.params._email)
+    .then(clientes => res.status(200).send(clientes))
+    .catch(next)
+})
+
 export default router

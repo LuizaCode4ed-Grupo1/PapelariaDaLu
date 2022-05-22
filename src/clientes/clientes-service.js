@@ -26,6 +26,14 @@ class ClienteService {
         return Cliente.find(params)
     }
 
+    listarClientesEmail(emailCliente) {
+        const params = {}
+        if (emailCliente !== undefined && emailCliente !==null) {
+            params._email = emailCliente
+        }
+        return Cliente.find(params)
+    }
+
 }
 
 export default ClienteService
