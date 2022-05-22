@@ -13,6 +13,11 @@ class ClienteController {
         const clienteService = new ClienteService()
         return clienteService.listarClientes()  
     }
+
+    listarClientesId(idCliente) {
+        const clienteService = new ClienteService()
+        return clienteService.listarClientesId(idCliente)
+    }
 }
 
 export default ClienteController

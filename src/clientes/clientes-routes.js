@@ -19,4 +19,11 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+// Listar cliente por id
+router.get('/:_id', (req, res, next) => {
+    clienteController.listarClientesId(req.params._id)
+    .then(clientes => res.status(200).send(clientes))
+    .catch(next)
+})
+
 export default router

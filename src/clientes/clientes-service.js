@@ -18,6 +18,14 @@ class ClienteService {
         return Cliente.find()
     }
 
+    listarClientesId(idCliente) {
+        const params = {}
+        if (idCliente !== undefined && idCliente !== null) {
+            params._id = idCliente
+        }
+        return Cliente.find(params)
+    }
+
 }
 
 export default ClienteService
