@@ -8,6 +8,11 @@ class ClienteController {
         return clienteService.cadastrarCliente(cliente)
     }
 
+    listarClientes(){
+        console.log('Exibindo clientes....')
+        const clienteService = new ClienteService()
+        return clienteService.listarClientes()  
+    }
 }
 
 export default ClienteController

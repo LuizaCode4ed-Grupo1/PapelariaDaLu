@@ -14,6 +14,10 @@ class ClienteService {
         return novoCliente.save()
     }
 
+    listarClientes(){
+        return Cliente.find()
+    }
+
 }
 
 export default ClienteService
