@@ -19,7 +19,7 @@ git clone https://github.com/LuizaCode4ed-Grupo1/PapelariaDaLu.git
 ```
 Instale as dependências:
 ```
-npm install --save-dev express @babel/cli @babel/core @babel/node @babel/preset-env body-parser nodemon mongodb mongoose
+npm install
 ```
 
 ## Inicializando
