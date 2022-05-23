@@ -33,4 +33,11 @@ router.patch('/:code', (req, res, next) => {
     .catch(next)
 })
 
+// Remover um produto informando seu código
+router.delete('/:code', (req, res, next) => {
+    produtoController.removerProduto(req.params.code)
+    .then(produto => res.status(200).send(produto))
+    .catch(next)
+})
+
 export default router

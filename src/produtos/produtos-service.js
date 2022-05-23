@@ -25,6 +25,9 @@ class ProdutoService {
         return Produto.findOneAndUpdate({code: codigoProduto}, produto)
     }
     
+    removerProduto(codigoProduto) {
+        return Produto.findOneAndDelete({code: codigoProduto})
+    }
 }
 
 export default ProdutoService

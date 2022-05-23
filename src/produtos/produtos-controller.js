@@ -26,6 +26,12 @@ class ProdutoController {
         return produtoService.atualizarProduto(codigoProduto, produto)
     }
 
+    removerProduto(codigoProduto) {
+        console.log('Removendo o produto com o código: ', codigoProduto)
+        const produtoService = new ProdutoService()
+        return produtoService.removerProduto(codigoProduto)
+    }
+
 }
 
 export default ProdutoController
