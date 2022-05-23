@@ -18,3 +18,5 @@ class ProdutoService {
     }
     
 }
+
+export default ProdutoService
