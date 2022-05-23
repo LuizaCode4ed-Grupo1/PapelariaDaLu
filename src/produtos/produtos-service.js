@@ -13,8 +13,16 @@ class ProdutoService {
         return novoProduto.save()
     }
 
-    listarProdutos() {
-        return Produto.find()
+    listarProdutos(codigoProduto) {
+        const params = {}
+        if (codigoProduto !== undefined && codigoProduto !== null) {
+            params.code = codigoProduto
+        }
+        return Produto.find(params)
+    }
+
+    atualizarProduto(codigoProduto, produto) {
+        return Produto.findOneAndUpdate({code: codigoProduto}, produto)
     }
     
 }

@@ -22,6 +22,14 @@ const schema = new Schema({
     price: {
         type: Number,
         default: 0.00
+    },
+    brand: {
+        type: String,
+        default: "Não informado"
+    },
+    color: {
+        type: String,
+        default: "Não informado"
     }
 })
 
