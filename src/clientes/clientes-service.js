@@ -34,6 +34,13 @@ class ClienteService {
         return Cliente.find(params)
     }
 
+    atualizarCliente(idCliente, cliente) {
+        return Cliente.findOneAndUpdate({_id: idCliente}, cliente)
+    }
+
+    removerCliente(idCliente) {
+        return Cliente.findOneAndDelete({_id: idCliente})
+    }
 }
 
 export default ClienteService

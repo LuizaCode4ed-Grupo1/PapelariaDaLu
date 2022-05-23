@@ -12,7 +12,7 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
-// Listar cliente
+// Listar clientes
 router.get('/', (req, res, next) => {
     clienteController.listarClientes()
     .then(clientes => res.status(200).send(clientes))
@@ -22,14 +22,28 @@ router.get('/', (req, res, next) => {
 // Listar cliente por id
 router.get('/:_id', (req, res, next) => {
     clienteController.listarClientesId(req.params._id)
-    .then(clientes => res.status(200).send(clientes))
+    .then(cliente => res.status(200).send(cliente))
     .catch(next)
 })
 
 // Listar cliente por email
 router.get('/:_email', (req, res, next) => {
     clienteController.listarClientesEmail(req.params._email)
-    .then(clientes => res.status(200).send(clientes))
+    .then(cliente => res.status(200).send(cliente))
+    .catch(next)
+})
+
+// Atualizar um cliente a partir do seu id
+router.patch('/:_id', (req, res, next) => {
+    clienteController.atualizarCliente(req.params._id, req.body)
+    .then(cliente => res.status(200).send(cliente))
+    .catch(next)
+})
+
+// Remover um cliente a partir do seu id
+router.delete('/:_id', (req, res, next) => {
+    clienteController.removerCliente(req.params._id)
+    .then(cliente => res.status(200).send(cliente))
     .catch(next)
 })
 

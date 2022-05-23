@@ -23,6 +23,19 @@ class ClienteController {
         const clienteService = new ClienteService()
         return clienteService.listarClientesEmail(emailCliente)
     }
+
+    atualizarCliente(idCliente, cliente) {
+        console.log('Atualizando o cliente com o id: ', idCliente)
+        const clienteService = new ClienteService()
+        return clienteService.atualizarCliente(idCliente, cliente)
+    }
+
+    removerCliente(idCliente) {
+        console.log('Removendo o cliente com o id: ', idCliente)
+        const clienteService = new ClienteService()
+        return clienteService.removerCliente(idCliente)
+    }    
+
 }
 
 export default ClienteController
