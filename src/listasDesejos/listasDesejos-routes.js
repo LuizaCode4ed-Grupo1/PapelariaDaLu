@@ -5,9 +5,23 @@ const router = express.Router()
 import ListaDesejos from './listasDesejos-controller'
 const listaDesejosController = new ListaDesejos()
 
-// Cadastrar um novo cliente
+// Cadastrar uma nova lista de desejos
 router.post('/', (req, res, next) => {
     listaDesejosController.cadastrarListaDesejos(req.body)
+    .then(listaDesejos => res.status(200).send(listaDesejos))
+    .catch(next)
+})
+
+// Listar lista de desejos
+router.get('/', (req, res, next) => {
+    listaDesejosController.listarListaDesejos()
+    .then(listaDesejos => res.status(200).send(listaDesejos))
+    .catch(next)
+})
+
+// Buscar uma lista de desejos pelo id
+router.get('/:code', (req, res, next) => {
+    listaDesejosController.listarListaDesejosPorId(req.params.code)
     .then(listaDesejos => res.status(200).send(listaDesejos))
     .catch(next)
 })

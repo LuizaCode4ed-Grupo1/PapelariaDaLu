@@ -14,6 +14,15 @@ class ListaDesejosService {
         return novaListaDesejos.save()
     }
 
+
+    listarListaDesejos(_id) {
+        const params = {}
+        if (_id !== undefined && _id !== null) {
+            params.code = _id
+        }
+        return ListaDesejos.find(params)
+    }
+
 }
 
 export default ListaDesejosService
