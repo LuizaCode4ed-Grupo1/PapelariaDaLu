@@ -28,6 +28,11 @@ class ProdutoService {
     removerProduto(codigoProduto) {
         return Produto.findOneAndDelete({code: codigoProduto})
     }
+
+    buscarPaginado(pagina, limite) {
+        return Produto.paginate({}, { page: pagina, limit: limite }, function (err, result) {})
+    }
+
 }
 
 export default ProdutoService
