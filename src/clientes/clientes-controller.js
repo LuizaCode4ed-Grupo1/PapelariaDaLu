@@ -24,6 +24,12 @@ class ClienteController {
         return clienteService.listarClientesEmail(emailCliente)
     }
 
+    buscarPaginadoCliente(pagina, limite) {
+        console.log('Entrou na busca paginada')
+        const clienteService = new ClienteService()
+        return clienteService.buscarPaginadoCliente(pagina, limite)
+    }
+
     atualizarCliente(idCliente, cliente) {
         console.log('Atualizando o cliente com o id: ', idCliente)
         const clienteService = new ClienteService()
