@@ -2,10 +2,10 @@ import ListaDesejosService from './listasDesejos-service'
 
 class listaDesejosController {
 
-    cadastrarListaDesejos(listaDesejos) {
-        console.log('Cadastrando uma nova lista de desejos....', listaDesejos)
+    cadastrarListaDesejos(idCliente, idProduto) {
+        console.log('Cadastrando uma nova lista de desejos....', idCliente, idProduto)
         const listaDesejosService = new ListaDesejosService()
-        return listaDesejosService.cadastrarListaDesejos(listaDesejos)
+        return listaDesejosService.cadastrarListaDesejos(idCliente, idProduto)
     }
 
     listarListaDesejos(){
