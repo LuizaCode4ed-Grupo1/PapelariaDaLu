@@ -5,18 +5,21 @@ const schema = new Schema({
     idCliente: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
+        Cliente: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Cliente'
+        }]
     },
     idProduto: {
         type: String,
         required: true,
         trim: true,
-        unique: true
-    },
-    produto: {
-        type: Date,
-        required: true,
-        trim: true
+        unique: true,
+        Produto: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Produto'
+        }]
     },
 })
 

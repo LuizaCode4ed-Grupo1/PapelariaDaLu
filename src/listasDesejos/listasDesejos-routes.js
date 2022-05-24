@@ -7,7 +7,8 @@ const listaDesejosController = new ListaDesejos()
 
 // Cadastrar uma nova lista de desejos
 router.post('/', (req, res, next) => {
-    listaDesejosController.cadastrarListaDesejos(req.body)
+    listaDesejosController.cadastrarListaDesejos(req.body.idCliente, req.body.idProduto)
+    console.log(req.body)
     .then(listaDesejos => res.status(200).send(listaDesejos))
     .catch(next)
 })
@@ -25,3 +26,5 @@ router.get('/:code', (req, res, next) => {
     .then(listaDesejos => res.status(200).send(listaDesejos))
     .catch(next)
 })
+
+export default router;
