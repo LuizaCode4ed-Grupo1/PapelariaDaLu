@@ -1,0 +1,23 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Papelaria da Lu",
+        "description": "API desenvolvida para o gerenciamento de clientes, produtos e listas de desejos da Papelaria da Lu.",
+        "version": "1.0.0"
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/produtos": {
+            "get": {
+                "description": "Buscar todos os produtos",
+                "responses": {
+                    "200": "Sucesso"
+                }
+            }
+        }
+    }
+}

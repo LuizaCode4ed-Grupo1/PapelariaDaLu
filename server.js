@@ -4,22 +4,25 @@ import routes from './src/routes'
 
 const app = express()
 
-import swaggerJsDocs from 'swagger-jsdoc'
+//import swaggerJsDocs from 'swagger-jsdoc'
 import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from './swagger.json'
 
-const options = {
-    definition : {
-        openapi: '3.0.0',
-        info: {
-            title: 'Papelaria da Lu',
-            version: '1.0.0'
-        }
-    },
-    apis: ['./src/**/*-routes.js']
-}
+// const options = {
+//     definition : {
+//         openapi: '3.0.0',
+//         info: {
+//             title: 'Papelaria da Lu',
+//             version: '1.0.0'
+//         }
+//     },
+//     apis: ['./src/**/*-routes.js']
+// }
 
-const openapiSpecification = swaggerJsDocs(options)
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification))
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
+
+// const openapiSpecification = swaggerJsDocs(options)
+// app.use('/docs', swaggerUi.serve, swaggerUi.setup(openapiSpecification))
 
 
 app.use(bodyParser.json())
