@@ -33,6 +33,16 @@ class ClienteService {
         }
         return Cliente.find(params)
     }
+    
+    buscarPaginadoCliente(pagina, limite) {
+        if (pagina === undefined) {
+            pagina = 1
+         } 
+         if (limite === undefined) {
+             limite = 5
+         }
+        return Cliente.paginate({}, { page: pagina, limit: limite }, function (err, result) {})
+    }
 
     atualizarCliente(idCliente, cliente) {
         return Cliente.findOneAndUpdate({_id: idCliente}, cliente)
