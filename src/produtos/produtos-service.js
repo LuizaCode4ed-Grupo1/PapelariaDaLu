@@ -30,6 +30,12 @@ class ProdutoService {
     }
 
     buscarPaginado(pagina, limite) {
+        if (pagina === undefined) {
+           pagina = 1
+        } 
+        if (limite === undefined) {
+            limite = 5
+        }
         return Produto.paginate({}, { page: pagina, limit: limite }, function (err, result) {})
     }
 
