@@ -6,6 +6,12 @@ import ProdutoController from './produtos-controller'
 const produtoController = new ProdutoController()
 
 // Cadastrar um novo produto
+/**
+ * @openapi
+ * /:
+ *   post:
+ *     description: Cadastrar um novo produto no banco de dados
+ */
 router.post('/', (req, res, next) => {
     produtoController.cadastrarProduto(req.body)
     .then(produto => res.status(200).send(produto))
