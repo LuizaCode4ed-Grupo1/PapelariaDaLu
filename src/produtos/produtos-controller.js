@@ -32,6 +32,12 @@ class ProdutoController {
         return produtoService.removerProduto(codigoProduto)
     }
 
+    buscarPaginado(pagina, limite) {
+        console.log('Entrou na busca paginada')
+        const produtoService = new ProdutoService()
+        return produtoService.buscarPaginado(pagina, limite)
+    }
+
 }
 
 export default ProdutoController

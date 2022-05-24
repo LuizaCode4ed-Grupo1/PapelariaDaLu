@@ -14,7 +14,9 @@ router.post('/', (req, res, next) => {
 
 // Listar todos os produtos
 router.get('/', (req, res, next) => {
-    produtoController.listarProdutos()
+    console.log(req.query.pagina)
+    console.log(req.query.limite)
+    produtoController.buscarPaginado(req.query.pagina, req.query.limite)
     .then(produtos => res.status(200).send(produtos))
     .catch(next)
 })
