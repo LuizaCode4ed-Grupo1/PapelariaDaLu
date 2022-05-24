@@ -8,9 +8,9 @@ import ListaDesejos from './listasDesejos-model'
 
 class ListaDesejosService {
 
-    cadastrarListaDesejos(idCliente, idProduto) {
+    cadastrarListaDesejos(idCliente, idProduto, nameList) {
         console.log('Inserindo uma lista de desejos no mongodb...')
-        const novaListaDesejos = new ListaDesejos({idCliente: idCliente, idProduto: idProduto})
+        const novaListaDesejos = new ListaDesejos({idCliente: idCliente, idProduto: idProduto, nameList: nameList})
         return novaListaDesejos.save()
     }
 

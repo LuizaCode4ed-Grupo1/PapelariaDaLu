@@ -6,6 +6,7 @@ const schema = new Schema({
         type: String,
         required: true,
         trim: true,
+        unique: true,
         Cliente: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Cliente'
@@ -15,11 +16,16 @@ const schema = new Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true,
+        //add regra de incluir apenas um tipo de produto/id por lista.
         Produto: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Produto'
         }]
+    },
+        nameList: {
+        type: String,
+        required: true,
+        trim: true,
     },
 })
 
