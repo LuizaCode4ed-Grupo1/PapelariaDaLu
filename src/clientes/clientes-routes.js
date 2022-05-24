@@ -20,15 +20,18 @@ router.get('/', (req, res, next) => {
 })
 
 // Listar cliente por id
-router.get('/:_id', (req, res, next) => {
+router.get('/id/:_id', (req, res, next) => {
     clienteController.listarClientesId(req.params._id)
     .then(cliente => res.status(200).send(cliente))
     .catch(next)
 })
 
 // Listar cliente por email
-router.get('/:_email', (req, res, next) => {
-    clienteController.listarClientesEmail(req.params._email)
+router.get('/email/:email', (req, res, next) => {
+    //res.status(200).send(req.params.email)
+
+
+    clienteController.listarClientesEmail(req.params.email)
     .then(cliente => res.status(200).send(cliente))
     .catch(next)
 })

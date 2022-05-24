@@ -29,7 +29,7 @@ class ClienteService {
     listarClientesEmail(emailCliente) {
         const params = {}
         if (emailCliente !== undefined && emailCliente !==null) {
-            params._email = emailCliente
+            params.email = emailCliente
         }
         return Cliente.find(params)
     }
