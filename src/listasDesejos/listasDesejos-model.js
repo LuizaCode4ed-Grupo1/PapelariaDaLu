@@ -6,7 +6,6 @@ const schema = new Schema({
         type: String,
         required: true,
         trim: true,
-        unique: true,
         Cliente: [{
             type: mongoose.Schema.Types.ObjectId,
             ref: 'Cliente'
@@ -29,4 +28,4 @@ const schema = new Schema({
     },
 })
 
-module.exports = mongoose.model('ListaDesejos', schema)
+module.exports = mongoose.model('lista-desejos', schema)
