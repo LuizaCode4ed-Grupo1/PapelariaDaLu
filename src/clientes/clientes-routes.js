@@ -12,11 +12,10 @@ router.post('/', (req, res, next) => {
     .catch(next)
 })
 
-// Listar todos os  clientes
+// Listar clientes
 router.get('/', (req, res, next) => {
-    console.log(req.query.pagina)
-    console.log(req.query.limite)
-    clienteController.buscarPaginadoCliente(req.query.pagina, req.query.limite)
+    console.log(req.query)
+    clienteController.buscarPaginadoCliente(req.query)
     .then(clientes => res.status(200).send(clientes))
     .catch(next)
 })

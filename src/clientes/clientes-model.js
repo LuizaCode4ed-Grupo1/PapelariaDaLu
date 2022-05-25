@@ -35,4 +35,5 @@ const schema = new Schema({
 
 schema.plugin(mongoosePaginate)
 
+
 module.exports = mongoose.model('Cliente', schema)

@@ -8,7 +8,7 @@ class ClienteController {
         return clienteService.cadastrarCliente(cliente)
     }
 
-    listarClientes(){
+    listarClientes() {
         console.log('Exibindo clientes....')
         const clienteService = new ClienteService()
         return clienteService.listarClientes()  
@@ -24,10 +24,21 @@ class ClienteController {
         return clienteService.listarClientesEmail(emailCliente)
     }
 
-    buscarPaginadoCliente(pagina, limite) {
+    buscarPaginadoCliente(params_query) {
         console.log('Entrou na busca paginada')
+        
+        var pagina = params_query.pagina
+        var limite = params_query.limite
+
+        if (pagina === undefined) {
+            pagina = 1
+         } 
+         if (limite === undefined) {
+             limite = 5
+         }
+
         const clienteService = new ClienteService()
-        return clienteService.buscarPaginadoCliente(pagina, limite)
+        return clienteService.buscarPaginadoCliente(params_query, pagina, limite)
     }
 
     atualizarCliente(idCliente, cliente) {
