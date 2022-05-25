@@ -8,18 +8,6 @@ class ProdutoController {
         return produtoService.cadastrarProduto(produto)
     }
 
-    listarProdutos() {
-        console.log('Exibindo produtos...')
-        const produtoService = new ProdutoService()
-        return produtoService.listarProdutos()
-    }
-
-    listarProdutoPorCodigo(codigoProduto) {
-        console.log('Procurando produto com o código: ', codigoProduto)
-        const produtoService = new ProdutoService()
-        return produtoService.listarProdutos(codigoProduto)
-    }
-
     atualizarProduto(codigoProduto, produto) {
         console.log('Atualizando o produto com o código: ', codigoProduto)
         const produtoService = new ProdutoService()
@@ -32,12 +20,10 @@ class ProdutoController {
         return produtoService.removerProduto(codigoProduto)
     }
 
-    buscarPaginado(pagina, limite) {
-        console.log('Entrou na busca paginada')
+    buscarPaginadoProduto(query) {
         const produtoService = new ProdutoService()
-        return produtoService.buscarPaginado(pagina, limite)
+        return produtoService.buscarPaginadoProduto(query)
     }
-
 }
 
 export default ProdutoController

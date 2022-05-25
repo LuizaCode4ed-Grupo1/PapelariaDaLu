@@ -13,14 +13,6 @@ class ProdutoService {
         return novoProduto.save()
     }
 
-    listarProdutos(codigoProduto) {
-        const params = {}
-        if (codigoProduto !== undefined && codigoProduto !== null) {
-            params.code = codigoProduto
-        }
-        return Produto.find(params)
-    }
-
     atualizarProduto(codigoProduto, produto) {
         return Produto.findOneAndUpdate({code: codigoProduto}, produto)
     }
@@ -29,14 +21,19 @@ class ProdutoService {
         return Produto.findOneAndDelete({code: codigoProduto})
     }
 
-    buscarPaginado(pagina, limite) {
+    buscarPaginadoProduto(query, pagina, limite) {
+
         if (pagina === undefined) {
            pagina = 1
         } 
         if (limite === undefined) {
             limite = 5
         }
-        return Produto.paginate({}, { page: pagina, limit: limite }, function (err, result) {})
+        if (query.name) {
+            query.name = new RegExp(query.name, 'i')
+        }
+
+        return Produto.paginate(query, { page: pagina, limit: limite })
     }
 
 }
