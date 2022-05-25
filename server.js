@@ -4,6 +4,9 @@ import routes from './src/routes'
 
 const app = express()
 
+import swaggerUi from 'swagger-ui-express'
+import swaggerDocument from './swagger.json'
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.use(bodyParser.json())
 
