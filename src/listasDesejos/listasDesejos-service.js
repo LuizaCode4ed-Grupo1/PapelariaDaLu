@@ -8,10 +8,11 @@ import ListaDesejos from './listasDesejos-model'
 
 class ListaDesejosService {
 
-    cadastrarListaDesejos(listaDesejos) {
+    async cadastrarListaDesejos(idCliente, idProduto, nameList) {
         console.log('Inserindo uma lista de desejos no mongodb...')
-        const novaListaDesejos = new ListaDesejos(listaDesejos)
-        return novaListaDesejos.save()
+        const novaListaDesejos = await new ListaDesejos({idCliente, idProduto, nameList})
+        novaListaDesejos.save()
+        return novaListaDesejos
     }
 
 
