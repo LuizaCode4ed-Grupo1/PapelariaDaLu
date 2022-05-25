@@ -24,6 +24,11 @@ class ProdutoController {
         const produtoService = new ProdutoService()
         return produtoService.buscarPaginadoProduto(query)
     }
+
+    buscarProdutoPorCodigo(codigo) {
+        const produtoService = new ProdutoService()
+        return produtoService.buscarProdutoPorCodigo(codigo)
+    }
 }
 
 export default ProdutoController

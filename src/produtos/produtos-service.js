@@ -36,6 +36,10 @@ class ProdutoService {
         return Produto.paginate(query, { page: pagina, limit: limite })
     }
 
+    buscarProdutoPorCodigo(code) {
+        return Produto.findOne({code})
+    }
+
 }
 
 export default ProdutoService
