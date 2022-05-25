@@ -13,7 +13,7 @@ const schema = new Schema({
         required: true,
         trim: true
     },
-    code: {
+    _code: {
         type: String,
         required: true,
         trim: true,
