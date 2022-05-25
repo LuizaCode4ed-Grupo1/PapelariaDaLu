@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
     .then(produtos => 
         {
             if(produtos.docs.length === 0) {
-                res.status(404).json({ message: 'Não encontramos nenhum produto com base nos parâmetros especificados.' })
+                res.status(404).json({ message: 'Não encontramos nenhum produto com base nos parâmetros especificados.'})
             }
             else {
                 res.status(200).send(produtos)
@@ -38,8 +38,8 @@ router.get('/', (req, res) => {
 // Atualizar um produto a partir do seu código
 // Status 200: OK
 // Status 400: Bad Request
-router.patch('/:code', verificarSeProdutoExiste, (req, res) => {
-    produtoController.atualizarProduto(req.params.code, req.body)
+router.patch('/:_code', verificarSeProdutoExiste, (req, res) => {
+    produtoController.atualizarProduto(req.params._code, req.body)
     .then(produto => res.status(200).send(produto))
     .catch(err => {
         res.status(400).json({ message: err.message })
@@ -49,27 +49,25 @@ router.patch('/:code', verificarSeProdutoExiste, (req, res) => {
 // Remover um produto informando seu código
 // Status 200: OK
 // Status 400: Bad Request
-router.delete('/:code', verificarSeProdutoExiste, (req, res) => {
-    produtoController.removerProduto(req.params.code)
-    .then(produto => res.status(200).send(produto))
+router.delete('/:_code', verificarSeProdutoExiste, (req, res) => {
+    produtoController.removerProduto(req.params._code)
+    .then(produto => res.status(200).json({ message: 'Produto deletado com sucesso.' }))
     .catch(err => {
         res.status(400).json({ message: err.message })
     })
 })
 
 async function verificarSeProdutoExiste(req, res, next) {
-    console.log('entrou no verificarSeProdutoExiste')
     let produto
     try {
-        produto = await produtoController.buscarProdutoPorCodigo(req.params.code)
+        produto = await produtoController.buscarProdutoPorCodigo(req.params._code)
         if (produto == null) {
             return res.status(404).json({ message: 'Não foi encontrado nenhum produto com o código especificado.' })
         }
     } catch (err) {
         return res.status(500).json({ message: err.message })
     }
-    res.produto = produto
     next()
 }
 
-export default routerg
+export default router

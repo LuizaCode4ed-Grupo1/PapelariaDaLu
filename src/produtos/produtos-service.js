@@ -8,17 +8,22 @@ import Produto from './produtos-model'
 class ProdutoService {
 
     cadastrarProduto(produto) {
-        console.log('Inserindo novo produto no mongodb....')
         const novoProduto = new Produto(produto)
         return novoProduto.save()
     }
 
     atualizarProduto(codigoProduto, produto) {
-        return Produto.findOneAndUpdate({code: codigoProduto}, produto)
+        if(produto._code) {
+            if(produto._code !== codigoProduto) {
+                console.log('Não é permitido alterar o código do produto!!')
+                return -1
+            }
+        }
+        return Produto.findOneAndUpdate({_code: codigoProduto}, produto)
     }
     
     removerProduto(codigoProduto) {
-        return Produto.findOneAndDelete({code: codigoProduto})
+        return Produto.findOneAndDelete({_code: codigoProduto})
     }
 
     buscarPaginadoProduto(query, pagina, limite) {
@@ -32,12 +37,15 @@ class ProdutoService {
         if (query.name) {
             query.name = new RegExp(query.name, 'i')
         }
+        if (query.code) {
+            query.code = new RegExp(query.code, 'y')
+        }
 
         return Produto.paginate(query, { page: pagina, limit: limite })
     }
 
-    buscarProdutoPorCodigo(code) {
-        return Produto.findOne({code})
+    buscarProdutoPorCodigo(_code) {
+        return Produto.findOne({_code})
     }
 
 }
