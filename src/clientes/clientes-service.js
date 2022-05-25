@@ -34,14 +34,28 @@ class ClienteService {
         return Cliente.find(params)
     }
     
-    buscarPaginadoCliente(pagina, limite) {
-        if (pagina === undefined) {
+    buscarPaginadoCliente(query, pagina, limite) {
+        console.log('Entrou no service')
+
+         if (pagina === undefined) {
             pagina = 1
-         } 
+        } 
          if (limite === undefined) {
              limite = 5
-         }
-        return Cliente.paginate({}, { page: pagina, limit: limite }, function (err, result) {})
+        }
+         if (query.name) {
+            query.name = new RegExp(query.name, 'i')
+        }
+        
+        var resultado = Cliente.paginate(query, { page: pagina, limit: limite }, this.callbackBuscaCliente)
+        
+        return resultado
+    }
+
+    callbackBuscaCliente(erro, resultado) {
+        console.log('Executando callback')
+        console.log(erro)
+        console.log(resultado)
     }
 
     atualizarCliente(idCliente, cliente) {
