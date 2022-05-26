@@ -8,6 +8,19 @@ const produtoController = new ProdutoController()
 // Cadastrar um novo produto
 // Status 201: Created
 // Status 400: Bad Request
+/**
+ *  @swagger
+ * /produtos:
+ *   tags:
+ *   - produtos
+ *   post:
+ *     description: Cadastra um novo produto
+ *     responses:
+ *       201:
+ *         description: Produto cadastrado com sucesso.
+ *       400:
+ *         description: Bad Request
+ */
 router.post('/', (req, res) => {
     produtoController.cadastrarProduto(req.body)
     .then(produto => res.status(201).send(produto))

@@ -14,7 +14,7 @@ const clienteController = new ClienteController()
  *       200:
  *         description: Sucesso ao cadastrar novo cliente!
  */
-router.post('/clientes', (req, res, next) => {
+router.post('/', (req, res, next) => {
     clienteController.cadastrarCliente(req.body)
     .then(cliente => res.status(200).send(cliente))
     .catch(next)
@@ -29,7 +29,7 @@ router.post('/clientes', (req, res, next) => {
  *       200:
  *         description: Sucesso ao encontrar todos os clientes!
  */
-router.get('/clientes', (req, res, next) => {
+router.get('/', (req, res, next) => {
     console.log(req.query)
     clienteController.buscarPaginadoCliente(req.query)
     .then(clientes => res.status(200).send(clientes))

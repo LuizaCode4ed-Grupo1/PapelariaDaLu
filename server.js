@@ -13,7 +13,24 @@ const swaggerOptions = {
             title: 'Papelaria da Lu',
             version: '1.0.0',
             description: "Documentação para utilização da API"
-        }
+        },
+        host: 'localhost:3000',
+        basepath: '/',
+        tags: [
+            {
+              name: "produtos",
+              description: "Tudo sobre nossos produtos"
+            },
+            {
+              name: "clientes",
+              description: "Tudo sobre nossos clientes"
+            },
+            {
+                name: "listasDesejos",
+                description: "Tudo sobre nossas listas de desejos"
+            }
+          ],
+        schemes: 'http'
     },
     apis:['./src/**/*-routes.js']
 }
