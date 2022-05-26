@@ -31,6 +31,7 @@ const schema = new Schema({
         required: true,
         trim: true
     }
+    
 })
 
 schema.plugin(mongoosePaginate)

@@ -5,43 +5,97 @@ const router = express.Router()
 import ClienteController from './clientes-controller'
 const clienteController = new ClienteController()
 
-// Cadastrar um novo cliente
-router.post('/', (req, res, next) => {
+/**
+ *  @swagger
+ * /clientes:
+ *   post:
+ *     description: Cadastra um novo cliente
+ *     responses:
+ *       200:
+ *         description: Sucesso ao cadastrar novo cliente!
+ */
+router.post('/clientes', (req, res, next) => {
     clienteController.cadastrarCliente(req.body)
     .then(cliente => res.status(200).send(cliente))
     .catch(next)
 })
 
-// Listar clientes
-router.get('/', (req, res, next) => {
+/**
+ * @swagger
+ * /clientes:
+ *   get:
+ *     description: Lista todos os clientes.
+ *     responses:
+ *       200:
+ *         description: Sucesso ao encontrar todos os clientes!
+ */
+router.get('/clientes', (req, res, next) => {
     console.log(req.query)
     clienteController.buscarPaginadoCliente(req.query)
     .then(clientes => res.status(200).send(clientes))
     .catch(next)
 })
 
-// Listar cliente por id
+
+/**
+ * @swagger
+ * /cliente/id:
+ *   get:
+ *     description: Lista cliente por id
+ *     responses:
+ *       200:
+ *         description: Sucesso ao encontrar cliente!
+ */
+
 router.get('/id/:_id', (req, res, next) => {
     clienteController.listarClientesId(req.params._id)
     .then(cliente => res.status(200).send(cliente))
     .catch(next)
 })
 
-// Listar cliente por email
+/**
+ * @swagger
+ * /cliente/email:
+ *   get:
+ *     description: Lista cliente por email
+ *     responses:
+ *       200:
+ *         description: Sucesso ao encontrar cliente!
+ */
+
 router.get('/email/:email', (req, res, next) => {
     clienteController.listarClientesEmail(req.params.email)
     .then(cliente => res.status(200).send(cliente))
     .catch(next)
 })
 
-// Atualizar um cliente a partir do seu id
+/**
+ * @swagger
+ * /cliente:
+ *   patch:
+ *     description: Atualiza um cliente pelo id
+ *     responses:
+ *       200:
+ *         description: Sucesso ao encontrar cliente!
+ */
+
 router.patch('/:_id', (req, res, next) => {
     clienteController.atualizarCliente(req.params._id, req.body)
     .then(cliente => res.status(200).send(cliente))
     .catch(next)
 })
 
-// Remover um cliente a partir do seu id
+/**
+ * @swagger
+ * /cliente:
+ *   delete:
+ *     description: Remove um cliente a partir do seu id
+ *     responses:
+ *       200:
+ *         description: Sucesso ao encontrar cliente!
+ */
+
+
 router.delete('/:_id', (req, res, next) => {
     clienteController.removerCliente(req.params._id)
     .then(cliente => res.status(200).send(cliente))
