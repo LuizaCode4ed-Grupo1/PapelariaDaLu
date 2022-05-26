@@ -32,7 +32,11 @@ const schema = new Schema({
     color: {
         type: String,
         default: "Não informado"
-    }
+    },
+    wishlists: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ListaDesejos'
+    }]
 })
 
 schema.plugin(mongoosePaginate)

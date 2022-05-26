@@ -36,7 +36,6 @@ const swaggerOptions = {
 }
 
 const swaggerDocs = swaggerJsdoc(swaggerOptions)
-//console.log(swaggerDocs)
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 
