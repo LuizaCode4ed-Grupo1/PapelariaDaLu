@@ -3,15 +3,21 @@ import config from '../config'
 
 mongoose.connect(config.connectionString)
 
-
 import ListaDesejos from './listasDesejos-model'
+import Cliente from '../clientes/clientes-model'
 
 class ListaDesejosService {
 
     async cadastrarListaDesejos(idCliente, idProduto, nameList) {
-        console.log('Inserindo uma lista de desejos no mongodb...')
+        
         const novaListaDesejos = await new ListaDesejos({idCliente, idProduto, nameList})
+
+        // Inserindo a nova lista de desejos na coleção de lista de desejos
         novaListaDesejos.save()
+
+        // Inserindo o id desta lista de desejos dentro do documento do cliente
+        let cliente = await Cliente.findOneAndUpdate({ _id: idCliente }, { $push: {wishlists: novaListaDesejos._id}})
+
         return novaListaDesejos
     }
 
