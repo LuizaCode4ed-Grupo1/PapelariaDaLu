@@ -33,6 +33,33 @@ class ListaDesejosService {
         return ListaDesejos.find(params)
     }
 
+    buscarPaginadoListaDesejos(query, pagina, limite) {
+        console.log('Entrou no service')
+
+         if (pagina === undefined) {
+            pagina = 1
+        } 
+         if (limite === undefined) {
+             limite = 5
+        }
+         if (query.nameList) {
+            query.nameList = new RegExp(query.nameList, 'i')
+        }
+        if (query._code) {
+            query._code = new RegExp(query._code, 'y')
+        }
+        
+        var resultado = ListaDesejos.paginate(query, { page: pagina, limit: limite }, this.callbackBuscaListaDesejos)
+        
+        return resultado
+    }
+
+    callbackBuscaListaDesejos(erro, resultado) {
+        // console.log('Executando callback')
+        // console.log(erro)
+        // console.log(resultado)
+    }
+
     atualizarListaDesejos(idListaDesejos, listaDesejos) {
         return ListaDesejos.findOneAndUpdate({_id: idListaDesejos},listaDesejos)
     }

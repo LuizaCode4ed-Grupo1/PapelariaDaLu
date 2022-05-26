@@ -27,6 +27,14 @@ router.get('/id/:_id', (req, res, next) => {
     .catch(next)
 })
 
+// Buscar paginado
+router.get('/', (req, res, next) => {
+    console.log(req.query)
+    listaDesejosController.buscarPaginadoListaDesejos(req.query)
+    .then(listaDesejos => res.status(200).send(listaDesejos))
+    .catch(next)
+})
+
 router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
     listaDesejosController.atualizarListaDesejos(req.params._id, req.body)
     .then(listaDesejos => res.status(200).send(listaDesejos))

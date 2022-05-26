@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import mongoosePaginate from 'mongoose-paginate'
+
 const Schema = mongoose.Schema
 
 const schema = new Schema({
@@ -25,5 +27,7 @@ const schema = new Schema({
         default: Date.now
     }
 })
+
+schema.plugin(mongoosePaginate)
 
 module.exports = mongoose.model('ListaDesejos', schema)
