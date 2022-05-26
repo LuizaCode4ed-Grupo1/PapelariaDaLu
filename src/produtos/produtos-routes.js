@@ -73,7 +73,7 @@ async function verificarSeProdutoExiste(req, res, next) {
 async function verificarSeClienteTentouAlterarCodigo(req, res, next) {
     if(req.body._code) {
         if(req.params._code !== req.body._code) {
-            return res.status(404).json({ message: 'Não é permitido alterar o código do produto!' })
+            return res.status(400).json({ message: 'Não é permitido alterar o código do produto!' })
         }
     }
     next()
