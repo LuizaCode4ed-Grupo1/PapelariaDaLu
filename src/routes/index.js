@@ -7,6 +7,6 @@ const router = express.Router()
 
 router.use('/clientes', RouterClientes)
 router.use('/produtos', RouterProdutos)
-router.use('/listaDesejos', RouterListaDesejos)
+router.use('/listasDesejos', RouterListaDesejos)
 
 export default router
