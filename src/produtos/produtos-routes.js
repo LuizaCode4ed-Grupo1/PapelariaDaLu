@@ -38,7 +38,7 @@ router.get('/', (req, res) => {
 // Atualizar um produto a partir do seu código
 // Status 200: OK
 // Status 400: Bad Request
-router.patch('/:_code', verificarSeProdutoExiste, (req, res) => {
+router.patch('/:_code', verificarSeProdutoExiste, verificarSeClienteTentouAlterarCodigo, (req, res) => {
     produtoController.atualizarProduto(req.params._code, req.body)
     .then(produto => res.status(200).send(produto))
     .catch(err => {
@@ -66,6 +66,15 @@ async function verificarSeProdutoExiste(req, res, next) {
         }
     } catch (err) {
         return res.status(500).json({ message: err.message })
+    }
+    next()
+}
+
+async function verificarSeClienteTentouAlterarCodigo(req, res, next) {
+    if(req.body._code) {
+        if(req.params._code !== req.body._code) {
+            return res.status(404).json({ message: 'Não é permitido alterar o código do produto!' })
+        }
     }
     next()
 }

@@ -13,12 +13,6 @@ class ProdutoService {
     }
 
     atualizarProduto(codigoProduto, produto) {
-        if(produto._code) {
-            if(produto._code !== codigoProduto) {
-                console.log('Não é permitido alterar o código do produto!!')
-                return -1
-            }
-        }
         return Produto.findOneAndUpdate({_code: codigoProduto}, produto)
     }
     
@@ -37,8 +31,8 @@ class ProdutoService {
         if (query.name) {
             query.name = new RegExp(query.name, 'i')
         }
-        if (query.code) {
-            query.code = new RegExp(query.code, 'y')
+        if (query._code) {
+            query._code = new RegExp(query._code, 'y')
         }
 
         return Produto.paginate(query, { page: pagina, limit: limite })
