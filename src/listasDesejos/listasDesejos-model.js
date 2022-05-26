@@ -3,29 +3,27 @@ const Schema = mongoose.Schema
 
 const schema = new Schema({
     idCliente: {
-        type: String,
-        required: true,
-        trim: true,
-        Cliente: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Cliente'
-        }]
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cliente',
+        required: true
     },
-    idProduto: {
-        type: String,
-        required: true,
-        trim: true,
-        //add regra de incluir apenas um tipo de produto/id por lista.
-        Produto: [{
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Produto'
-        }]
-    },
-        nameList: {
+    
+    idProduto: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Produto',
+        required: true
+    }],
+    
+    nameList: {
         type: String,
         required: true,
         trim: true,
     },
+
+    createdAt : {
+        type: Date,
+        default: Date.now
+    }
 })
 
-module.exports = mongoose.model('lista-desejos', schema)
+module.exports = mongoose.model('ListaDesejos', schema)

@@ -5,6 +5,7 @@ const router = express.Router()
 import ClienteController from './clientes-controller'
 const clienteController = new ClienteController()
 
+
 /**
  *  @swagger
  * /clientes:
@@ -47,8 +48,8 @@ router.get('/', (req, res, next) => {
  *         description: Sucesso ao encontrar cliente!
  */
 
-router.get('/id/:_id', (req, res, next) => {
-    clienteController.listarClientesId(req.params._id)
+router.get('/id/:id', (req, res, next) => {
+    clienteController.listarClientesId(req.params.id)
     .then(cliente => res.status(200).send(cliente))
     .catch(next)
 })

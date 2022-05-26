@@ -9,28 +9,37 @@ const schema = new Schema({
         required: true,
         trim: true
     },
+
     email: {
         type: String,
         required: true,
         trim: true,
         unique: true
     },
+
     birthday: {
         type: Date,
         required: true,
         trim: true
     },
+
     cpf: {
         type: String,
         required: true,
         trim: true,
         unique: true
     },
+
     phoneNumber: {
         type: Number,
         required: true,
         trim: true
-    }
+    },
+
+    wishlists: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ListaDesejos'
+    }]
     
 })
 
