@@ -27,4 +27,20 @@ router.get('/id/:_id', (req, res, next) => {
     .catch(next)
 })
 
+router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
+    listaDesejosController.atualizarListaDesejos(req.params._id, req.body)
+    .then(listaDesejos => res.status(200).send(listaDesejos))
+    .catch(next)
+})
+
+
+async function verificarSeClienteTentouAlterarId(req, res, next) {
+    if(req.body.idCliente) {
+        if(req.params.idCliente !== req.body.idCliente) {
+            return res.status(400).json({ message: 'Não é permitido alterar o id do cliente!' })
+        }
+    }
+    next()
+}
+
 export default router;

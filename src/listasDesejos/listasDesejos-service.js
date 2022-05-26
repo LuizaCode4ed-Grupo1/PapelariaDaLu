@@ -33,6 +33,9 @@ class ListaDesejosService {
         return ListaDesejos.find(params)
     }
 
+    atualizarListaDesejos(idListaDesejos, listaDesejos) {
+        return ListaDesejos.findOneAndUpdate({_id: idListaDesejos},listaDesejos)
+    }
 }
 
 export default ListaDesejosService

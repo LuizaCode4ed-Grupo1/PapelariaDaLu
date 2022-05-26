@@ -21,6 +21,13 @@ class listaDesejosController {
         return listaDesejosService.listarListaDesejosPorId(_id)
     }
 
+    atualizarListaDesejos(idListaDesejos, listaDesejos) {
+        console.log('Atualizando lista de desejos: ', idListaDesejos)
+        const listaDesejosService = new ListaDesejosService()
+        return listaDesejosService.atualizarListaDesejos(idListaDesejos, listaDesejos)
+    }
+
+
 }
 
 export default listaDesejosController
