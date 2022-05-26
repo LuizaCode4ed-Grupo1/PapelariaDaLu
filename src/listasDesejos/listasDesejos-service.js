@@ -36,6 +36,12 @@ class ListaDesejosService {
     atualizarListaDesejos(idListaDesejos, listaDesejos) {
         return ListaDesejos.findOneAndUpdate({_id: idListaDesejos},listaDesejos)
     }
+
+    removerListaDesejo(idListaDesejos) {
+        return ListaDesejos.findOneAndDelete({_id: idListaDesejos})
+    }
+
+
 }
 
 export default ListaDesejosService

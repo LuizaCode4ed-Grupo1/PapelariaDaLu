@@ -43,4 +43,10 @@ async function verificarSeClienteTentouAlterarId(req, res, next) {
     next()
 }
 
+router.delete('/:_id', (req, res, next) => {
+    listaDesejosController.removerListaDesejo(req.params._id)
+    .then(listaDesejos => res.status(200).send(listaDesejos))
+    .catch(next)
+})
+
 export default router;

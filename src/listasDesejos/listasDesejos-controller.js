@@ -27,6 +27,11 @@ class listaDesejosController {
         return listaDesejosService.atualizarListaDesejos(idListaDesejos, listaDesejos)
     }
 
+    removerListaDesejo(idListaDesejos) {
+        console.log('Removendo a lista de desejo o id: ', idListaDesejos)
+        const listaDesejosService = new ListaDesejosService()
+        return listaDesejosService.removerListaDesejo(idListaDesejos)
+    }    
 
 }
 
