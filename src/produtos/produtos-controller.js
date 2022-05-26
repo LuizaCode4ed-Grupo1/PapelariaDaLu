@@ -3,41 +3,29 @@ import ProdutoService from './produtos-service'
 class ProdutoController {
 
     cadastrarProduto(produto) {
-        console.log('Cadastrando um novo produto...', produto)
         const produtoService = new ProdutoService()
         return produtoService.cadastrarProduto(produto)
     }
 
-    listarProdutos() {
-        console.log('Exibindo produtos...')
-        const produtoService = new ProdutoService()
-        return produtoService.listarProdutos()
-    }
-
-    listarProdutoPorCodigo(codigoProduto) {
-        console.log('Procurando produto com o código: ', codigoProduto)
-        const produtoService = new ProdutoService()
-        return produtoService.listarProdutos(codigoProduto)
-    }
-
     atualizarProduto(codigoProduto, produto) {
-        console.log('Atualizando o produto com o código: ', codigoProduto)
         const produtoService = new ProdutoService()
         return produtoService.atualizarProduto(codigoProduto, produto)
     }
 
     removerProduto(codigoProduto) {
-        console.log('Removendo o produto com o código: ', codigoProduto)
         const produtoService = new ProdutoService()
         return produtoService.removerProduto(codigoProduto)
     }
 
-    buscarPaginado(pagina, limite) {
-        console.log('Entrou na busca paginada')
+    buscarPaginadoProduto(query) {
         const produtoService = new ProdutoService()
-        return produtoService.buscarPaginado(pagina, limite)
+        return produtoService.buscarPaginadoProduto(query)
     }
 
+    buscarProdutoPorCodigo(codigo) {
+        const produtoService = new ProdutoService()
+        return produtoService.buscarProdutoPorCodigo(codigo)
+    }
 }
 
 export default ProdutoController
