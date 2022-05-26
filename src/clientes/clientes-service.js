@@ -53,9 +53,9 @@ class ClienteService {
     }
 
     callbackBuscaCliente(erro, resultado) {
-        console.log('Executando callback')
-        console.log(erro)
-        console.log(resultado)
+        // console.log('Executando callback')
+        // console.log(erro)
+        // console.log(resultado)
     }
 
     atualizarCliente(idCliente, cliente) {

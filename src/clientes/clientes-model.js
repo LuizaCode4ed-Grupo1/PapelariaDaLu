@@ -1,6 +1,9 @@
 import mongoose from 'mongoose'
 import mongoosePaginate from 'mongoose-paginate'
 
+// import ListaDesejosSchema from '../listasDesejos/listasDesejos-model'
+const {ListaDesejosSchema} = require(__dirname.substring(0, __dirname.length - 8) + 'listasDesejos\\listasDesejos-model.js')
+
 const Schema = mongoose.Schema
 
 const schema = new Schema({
@@ -36,10 +39,7 @@ const schema = new Schema({
         trim: true
     },
 
-    wishlists: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'ListaDesejos'
-    }]
+    wishlists: [ ListaDesejosSchema ] 
     
 })
 

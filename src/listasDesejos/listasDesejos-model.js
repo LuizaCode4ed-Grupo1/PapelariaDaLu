@@ -26,4 +26,12 @@ const schema = new Schema({
     }
 })
 
-module.exports = mongoose.model('ListaDesejos', schema)
+// module.exports = mongoose.model('ListaDesejos', schema)
+
+// module.exports = {
+//     ListaDesejos: mongoose.model('ListaDesejos', schema),
+//     ListaDesejosSchema: schema
+// }
+
+exports.ListaDesejos = mongoose.model('ListaDesejos', schema)
+exports.ListaDesejosSchema = schema
