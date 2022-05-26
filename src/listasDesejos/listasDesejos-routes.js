@@ -21,8 +21,8 @@ router.get('/', (req, res, next) => {
 })
 
 // Buscar uma lista de desejos pelo id
-router.get('/:code', (req, res, next) => {
-    listaDesejosController.listarListaDesejosPorId(req.params.code)
+router.get('/id/:_id', (req, res, next) => {
+    listaDesejosController.listarListaDesejosPorId(req.params._id)
     .then(listaDesejos => res.status(200).send(listaDesejos))
     .catch(next)
 })

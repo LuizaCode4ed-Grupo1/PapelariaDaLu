@@ -15,11 +15,14 @@ class ListaDesejosService {
         return novaListaDesejos
     }
 
+    listarListaDesejos(){
+        return ListaDesejos.find()
+    }
 
-    listarListaDesejos(_id) {
+    listarListaDesejosPorId(_id) {
         const params = {}
         if (_id !== undefined && _id !== null) {
-            params.code = _id
+            params._id = _id
         }
         return ListaDesejos.find(params)
     }
