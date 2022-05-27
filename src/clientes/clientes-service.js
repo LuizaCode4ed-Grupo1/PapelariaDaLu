@@ -26,31 +26,17 @@ class ClienteService {
         return Cliente.find(params)
     }
 
-    async listarClientesId2(idCliente) {
+    async listarClientesEListaDesejos(idCliente) {
         const params = {}
         const id = idCliente
         if (idCliente !== undefined && idCliente !== null) {
             params._id = idCliente
         }
-        // return Cliente.aggregate([
-        // {
-        //     "$unwind": "$wishlists" 
-        // },
-        // {
-        //     "$group": {
-        //         "_id": null,
-        //         "allwishlists": {
-        //             "$addToSet": "$wishlists"
-        //         }
-        //     }
-        // }])
-
         const cliente = await Cliente.findById(id)
         const wishlist = cliente.wishlists
         console.log(cliente)
         return wishlist
     }
-
 
     listarClientesEmail(emailCliente) {
         const params = {}

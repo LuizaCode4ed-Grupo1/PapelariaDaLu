@@ -16,8 +16,12 @@ class ClienteController {
 
     listarClientesId(idCliente) {
         const clienteService = new ClienteService()
-        // return clienteService.listarClientesId(idCliente)
-        return clienteService.listarClientesId2(idCliente)
+        return clienteService.listarClientesId(idCliente)
+    }
+
+    listarClientesEListaDesejos(idCliente) {
+        const clienteService = new ClienteService()
+        return clienteService.listarClientesEListaDesejos(idCliente)
     }
 
     listarClientesEmail(emailCliente) {

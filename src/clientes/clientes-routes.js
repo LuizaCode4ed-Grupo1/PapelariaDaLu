@@ -54,6 +54,13 @@ router.get('/id/:id', (req, res, next) => {
     .catch(next)
 })
 
+// Buscar pelo idCliente e retornar listas de desejos
+router.get('/listasDesejos/:id', (req, res, next) => {
+    clienteController.listarClientesEListaDesejos(req.params.id)
+    .then(cliente => res.status(200).send(cliente))
+    .catch(next)
+})
+
 /**
  * @swagger
  * /cliente/email:
