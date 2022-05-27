@@ -3,37 +3,66 @@ import config from '../config'
 
 mongoose.connect(config.connectionString)
 
-
-import ListaDesejosModel from './listasDesejos-model'
+import ListaDesejos from './listasDesejos-model'
 import Cliente from '../clientes/clientes-model'
 
 class ListaDesejosService {
 
     async cadastrarListaDesejos(idCliente, idProduto, nameList) {
-        console.log('Inserindo uma lista de desejos no mongodb...')
-
-        const novaListaDesejos = await new ListaDesejosModel.ListaDesejos({idCliente, idProduto, nameList})
+        
+        const novaListaDesejos = await new ListaDesejos({idCliente, idProduto, nameList})
 
         // Inserindo a nova lista de desejos na coleção de lista de desejos
-        console.log('Inserindo lista em listas')
         novaListaDesejos.save()
 
-        // Inserindo a mesma lista de desejos dentro do documento do cliente 
-        console.log('Inserindo lista em cliente')
-        let cliente = await Cliente.findOneAndUpdate({ _id: idCliente }, { $push: {wishlists: novaListaDesejos}})
-        console.log(cliente.wishlists)
+        // Inserindo o id desta lista de desejos dentro do documento do cliente
+        let cliente = await Cliente.findOneAndUpdate({ _id: idCliente }, { $push: {wishlists: novaListaDesejos._id}})
 
         return novaListaDesejos
     }
 
+    listarListaDesejos(){
+        return ListaDesejos.find()
+    }
 
-    listarListaDesejos(_id) {
+    listarListaDesejosPorId(_id) {
         const params = {}
         if (_id !== undefined && _id !== null) {
-            params.code = _id
+            params._id = _id
         }
         return ListaDesejosModel.ListaDesejos.find(params)
     }
+
+    buscarPaginadoListaDesejos(query, pagina, limite) {
+        console.log('Entrou no service')
+
+         if (pagina === undefined) {
+            pagina = 1
+        } 
+         if (limite === undefined) {
+             limite = 5
+        }
+         if (query.nameList) {
+            query.nameList = new RegExp(query.nameList, 'i')
+        }
+        if (query.idProduto) {
+            query.idProduto = new RegExp(query.idProduto, 'y')
+        }
+        
+        return ListaDesejos.paginate(query, { page: pagina, limit: limite })          
+    }
+    buscarListaDesejosPorCodigoProduto(idProduto) {
+        return ListaDesejos.findOne({idProduto})
+    }
+
+    atualizarListaDesejos(idListaDesejos, listaDesejos) {
+        return ListaDesejos.findOneAndUpdate({_id: idListaDesejos},listaDesejos)
+    }
+
+    removerListaDesejo(idListaDesejos) {
+        return ListaDesejos.findOneAndDelete({_id: idListaDesejos})
+    }
+
 
 }
 

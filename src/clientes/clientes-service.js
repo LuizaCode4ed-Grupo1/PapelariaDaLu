@@ -26,6 +26,27 @@ class ClienteService {
         return Cliente.find(params)
     }
 
+    listarClientesId2(idCliente) {
+        const params = {}
+        if (idCliente !== undefined && idCliente !== null) {
+            params._id = idCliente
+        }
+        // return Cliente.aggregate([
+        // {
+        //     "$unwind": "$wishlists" 
+        // },
+        // {
+        //     "$group": {
+        //         "_id": null,
+        //         "allwishlists": {
+        //             "$addToSet": "$wishlists"
+        //         }
+        //     }
+        // }])
+
+        return Cliente.find(params).populate('wishlists')
+    }
+
     listarClientesEmail(emailCliente) {
         const params = {}
         if (emailCliente !== undefined && emailCliente !==null) {

@@ -21,6 +21,33 @@ class listaDesejosController {
         return listaDesejosService.listarListaDesejosPorId(_id)
     }
 
+    buscarPaginadoListaDesejos(params_query) {
+        console.log('Entrou na busca paginada')
+        var pagina = params_query.pagina
+        var limite = params_query.limite
+
+        if (pagina === undefined) {
+            pagina = 1
+         } 
+         if (limite === undefined) {
+             limite = 5
+         }
+        const listaDesejosService = new ListaDesejosService()
+        return listaDesejosService.buscarPaginadoListaDesejos(params_query, pagina, limite)
+    }
+
+    atualizarListaDesejos(idListaDesejos, listaDesejos) {
+        console.log('Atualizando lista de desejos: ', idListaDesejos)
+        const listaDesejosService = new ListaDesejosService()
+        return listaDesejosService.atualizarListaDesejos(idListaDesejos, listaDesejos)
+    }
+
+    removerListaDesejo(idListaDesejos) {
+        console.log('Removendo a lista de desejo o id: ', idListaDesejos)
+        const listaDesejosService = new ListaDesejosService()
+        return listaDesejosService.removerListaDesejo(idListaDesejos)
+    }    
+
 }
 
 export default listaDesejosController
