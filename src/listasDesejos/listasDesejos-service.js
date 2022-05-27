@@ -45,19 +45,14 @@ class ListaDesejosService {
          if (query.nameList) {
             query.nameList = new RegExp(query.nameList, 'i')
         }
-        if (query._code) {
-            query._code = new RegExp(query._code, 'y')
+        if (query.idProduto) {
+            query.idProduto = new RegExp(query.idProduto, 'y')
         }
         
-        var resultado = ListaDesejos.paginate(query, { page: pagina, limit: limite }, this.callbackBuscaListaDesejos)
-        
-        return resultado
+        return ListaDesejos.paginate(query, { page: pagina, limit: limite })          
     }
-
-    callbackBuscaListaDesejos(erro, resultado) {
-        // console.log('Executando callback')
-        // console.log(erro)
-        // console.log(resultado)
+    buscarListaDesejosPorCodigoProduto(idProduto) {
+        return ListaDesejos.findOne({idProduto})
     }
 
     atualizarListaDesejos(idListaDesejos, listaDesejos) {
