@@ -26,7 +26,7 @@ class ClienteService {
         return Cliente.find(params)
     }
 
-    listarClientesId2(idCliente) {
+    async listarClientesId2(idCliente) {
         const params = {}
         if (idCliente !== undefined && idCliente !== null) {
             params._id = idCliente
@@ -44,8 +44,10 @@ class ClienteService {
         //     }
         // }])
 
-        return Cliente.find(params).populate('wishlists')
+        const wishlists = await Cliente.find(params).populate('wishlists')
+        console.log(wishlists[0].wishlists)
     }
+
 
     listarClientesEmail(emailCliente) {
         const params = {}
