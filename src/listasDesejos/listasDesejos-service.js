@@ -35,24 +35,8 @@ class ListaDesejosService {
 
     buscarPaginadoListaDesejos(query, pagina, limite) {
         console.log('Entrou no service')
-
-         if (pagina === undefined) {
-            pagina = 1
-        } 
-         if (limite === undefined) {
-             limite = 5
-        }
-         if (query.nameList) {
-            query.nameList = new RegExp(query.nameList, 'i')
-        }
-        if (query.idProduto) {
-            query.idProduto = new RegExp(query.idProduto, 'y')
-        }
-        
-        return ListaDesejos.paginate(query, { page: pagina, limit: limite })          
-    }
-    buscarListaDesejosPorCodigoProduto(idProduto) {
-        return ListaDesejos.findOne({idProduto})
+        var resultado = ListaDesejos.paginate(query, { page: pagina, limit: limite })
+        return resultado
     }
 
     atualizarListaDesejos(idListaDesejos, listaDesejos) {

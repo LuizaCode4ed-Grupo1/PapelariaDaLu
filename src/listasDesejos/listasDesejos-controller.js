@@ -26,12 +26,12 @@ class listaDesejosController {
         var pagina = params_query.pagina
         var limite = params_query.limite
 
-        if (pagina === undefined) {
+        if (!pagina) {
             pagina = 1
-         } 
-         if (limite === undefined) {
-             limite = 5
-         }
+        } 
+        if (!limite) {
+            limite = 5
+        }
         const listaDesejosService = new ListaDesejosService()
         return listaDesejosService.buscarPaginadoListaDesejos(params_query, pagina, limite)
     }

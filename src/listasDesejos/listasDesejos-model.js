@@ -4,6 +4,12 @@ import mongoosePaginate from 'mongoose-paginate'
 const Schema = mongoose.Schema
 
 const schema = new Schema({
+    nameList: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+
     idCliente: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Cliente',
@@ -16,12 +22,6 @@ const schema = new Schema({
         required: true
     }],
     
-    nameList: {
-        type: String,
-        required: true,
-        trim: true,
-    },
-
     createdAt : {
         type: Date,
         default: Date.now
