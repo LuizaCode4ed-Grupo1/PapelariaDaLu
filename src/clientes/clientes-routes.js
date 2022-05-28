@@ -212,7 +212,7 @@ router.get('/email/:email', (req, res, next) => {
 
 /**
  * @swagger
- * /cliente:
+ * /clientes:
  *   patch:
  *     tags:
  *     - clientes
@@ -240,7 +240,7 @@ router.patch('/:_id', (req, res, next) => {
 
 /**
  * @swagger
- * /cliente:
+ * /clientes:
  *   delete:
  *     tags:
  *     - clientes
