@@ -8,29 +8,30 @@ const app = express()
 
 const swaggerOptions = {
     swaggerDefinition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'Papelaria da Lu',
-            version: '1.0.0',
-            description: "Documentação para utilização da API"
+      openapi: '3.0.0',
+      info: {
+          title: 'Papelaria da Lu',
+          version: '1.0.0',
+          description: "Documentação para utilização da API \"Papelaria da Lu\"."
+      },
+      host: 'localhost:3000',
+      basepath: '/',
+      tags: [
+        {
+          name: "produtos",
+          description: "Tudo sobre nossos produtos"
         },
-        host: 'localhost:3000',
-        basepath: '/',
-        tags: [
-            {
-              name: "produtos",
-              description: "Tudo sobre nossos produtos"
-            },
-            {
-              name: "clientes",
-              description: "Tudo sobre nossos clientes"
-            },
-            {
-                name: "listasDesejos",
-                description: "Tudo sobre nossas listas de desejos"
-            }
-          ],
-        schemes: 'http'
+        {
+          name: "clientes",
+          description: "Tudo sobre nossos clientes"
+        },
+        {
+          name: "listasDesejos",
+          description: "Tudo sobre nossas listas de desejos"
+        }
+      ],
+      schemes: 
+      - 'http'
     },
     apis:['./src/**/*-routes.js']
 }
