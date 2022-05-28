@@ -94,7 +94,7 @@ const clienteController = new ClienteController()
  *       400:
  *         description: Bad Request
  */
-router.post('/', (req, res, next) => {
+router.post('/', verificarSeClienteTentouCadastrarComWishlist, (req, res, next) => {
     clienteController.cadastrarCliente(req.body)
     .then(cliente => res.status(201).send(cliente))
     .catch((err) => {
@@ -257,5 +257,12 @@ router.delete('/:_id', (req, res, next) => {
         res.status(500).json({ message: err.message })
     })
 })
+
+async function verificarSeClienteTentouCadastrarComWishlist(req, res, next) {
+    if(req.body.wishlists) {
+        return res.status(400).json({ message: 'Bad Request. Não é permitido cadastrar um cliente com listas de desejos.'})
+    }
+    next()
+}
 
 export default router
