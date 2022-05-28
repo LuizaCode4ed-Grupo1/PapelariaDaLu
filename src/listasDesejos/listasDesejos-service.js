@@ -36,14 +36,14 @@ class ListaDesejosService {
 
     async listarIdClientesListaDesejosEProdutos(idCliente) {
         const params = {}
-        // const id = idCliente
+        const id = idCliente
         if (idCliente !== undefined && idCliente !== null) {
             params._id = idCliente
         }
-        const cliente = await Cliente.findById(params)
-        const wishlistCliente = cliente.idCliente
-        console.log(cliente)
-        return wishlistCliente
+        const cliente = await Cliente.findById(id)
+        const wishlist = cliente.wishlists
+        console.log(wishlist)
+        return wishlist
     }
 
     buscarPaginadoListaDesejos(query, pagina, limite) {
