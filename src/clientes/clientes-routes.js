@@ -5,6 +5,40 @@ const router = express.Router()
 import ClienteController from './clientes-controller'
 const clienteController = new ClienteController()
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      Cliente:
+ *          type: object
+ *          required:
+ *              - name
+ *              - email
+ *              - birthday
+ *              - cpf
+ *          properties:
+ *              _id:
+ *                  type: ObjectId
+ *                  description: ID gerado automaticamente pelo MongoDB
+ *              name:
+ *                  type: String
+ *                  description: O nome do usuário
+ *              email:
+ *                  type: String
+ *                  description: O email do usuário
+ *              birthday: 
+ *                  type: Date
+ *                  description: A data de nascimento do usuário. Deve ser informado no método POST no formato americano (MM/DD/YYYY)
+ *              cpf:
+ *                  type: String
+ *                  description: O CPF do usuário
+ *              phoneNumber:
+ *                  type: Number
+ *                  description: O número de telefone do usuário
+ *              wishlists:
+ *                  type: Array de ObjectId
+ *                  description: Array que armazena os IDs das listas de desejos do usuário
+ */
 
 /**
  *  @swagger
