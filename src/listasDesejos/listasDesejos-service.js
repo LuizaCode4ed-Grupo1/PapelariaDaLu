@@ -34,6 +34,37 @@ class ListaDesejosService {
         return ListaDesejos.find(params)
     }
 
+    listarListaDesejosPorIdCliente(idCliente) {
+        const params = {}
+        if (idCliente !== undefined && idCliente !== null) {
+            params.idCliente = idCliente
+        }
+        return ListaDesejos.find(params)
+    }
+
+
+    // async listarIdClientesListaDesejosEProdutos(idCliente, idProduto) {
+    //     const params = {}
+    //     const id = idCliente
+    //     const idteste = idProduto
+    //     //const idProduto = idProduto
+    //     if (idCliente !== undefined && idCliente !== null) {
+    //         params._id = idCliente
+    //     }
+    //     if (idProduto !== undefined && idProduto !== null) {
+    //         params._id = idProduto
+    //     }
+    //     const cliente = await Cliente.findById(id)
+    //     const produto = await Produto.findById(idteste)
+    //     const wishlist = cliente.wishlists
+    //     //const wishlistteste = produto.wishlists
+    //     console.log(cliente)
+    //     console.log(produto)
+    //     console.log(wishlist)
+    //     return wishlist
+    // }
+
+
     async listarIdClientesListaDesejosEProdutos(idCliente) {
         const params = {}
         const id = idCliente
@@ -42,7 +73,7 @@ class ListaDesejosService {
         }
         const cliente = await Cliente.findById(id)
         const wishlist = cliente.wishlists
-        console.log(wishlist)
+        console.log(cliente)
         return wishlist
     }
 

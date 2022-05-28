@@ -35,11 +35,6 @@ const schema = new Schema({
         required: true,
         trim: true
     },
-
-    wishlists: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'ListaDesejos'
-    }]
     
 })
 

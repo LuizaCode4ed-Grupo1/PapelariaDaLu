@@ -5,6 +5,7 @@ mongoose.connect(config.connectionString)
 
 
 import Cliente from './clientes-model'
+import ListaDesejosService from '../listasDesejos/listasDesejos-service'
 
 class ClienteService {
 
@@ -18,12 +19,23 @@ class ClienteService {
         return Cliente.find()
     }
 
-    listarClientesId(idCliente) {
+    async listarClientesId(idCliente) {
         const params = {}
+        const listaDesejosService = new ListaDesejosService()
+        const populateListaDesejos = listaDesejosService.listarListaDesejosPorIdCliente(idCliente)//
         if (idCliente !== undefined && idCliente !== null) {
             params._id = idCliente
         }
-        return Cliente.find(params)
+        const clientes = await Cliente.findOne(params, (err, data) => {
+            if (err) throw err;
+            return JSON.stringify(data);
+
+        })
+        const listaDesejos = await populateListaDesejos //
+        console.log(clientes[0], listaDesejos)
+        const returnedValue = {...clientes, listaDesejos}
+        return returnedValue
+
     }
 
     async listarClientesEListaDesejos(idCliente) {
