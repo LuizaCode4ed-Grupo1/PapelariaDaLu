@@ -198,8 +198,8 @@ router.get('/listasDesejos/:id', (req, res, next) => {
  *   get:
  *     tags: 
  *     - clientes
- *     summary: 
- *     description: Lista cliente por email
+ *     summary: Mostra um cliente com o email especificado
+ *     description: ""
  *     responses:
  *       200:
  *         description: Sucesso ao encontrar cliente!
@@ -244,7 +244,7 @@ router.patch('/:_id', (req, res, next) => {
  *   delete:
  *     tags:
  *     - clientes
- *     sumary: Remove um cliente a partir do seu id
+ *     summary: Remove um cliente a partir do seu id
  *     description: ""
  *     responses:
  *       204:
