@@ -28,6 +28,13 @@ router.get('/id/:_id', (req, res, next) => {
     .catch(next)
 })
 
+// Buscar pelo IdCliente e retornar listas de desejos e produtos
+router.get('/listasDesejos/:id', (req, res, next) => {
+    listaDesejosController.listarIdClientesListaDesejosEProdutos(req.params.id)
+    .then(listaDesejos => res.status(200).send(listaDesejos))
+    .catch(next)
+})
+
 router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
     listaDesejosController.atualizarListaDesejos(req.params._id, req.body)
     .then(listaDesejos => res.status(200).send(listaDesejos))

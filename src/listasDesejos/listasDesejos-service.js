@@ -5,6 +5,7 @@ mongoose.connect(config.connectionString)
 
 import ListaDesejos from './listasDesejos-model'
 import Cliente from '../clientes/clientes-model'
+import Produto from '../produtos/produtos-model'
 
 class ListaDesejosService {
 
@@ -31,6 +32,18 @@ class ListaDesejosService {
             params._id = _id
         }
         return ListaDesejos.find(params)
+    }
+
+    async listarIdClientesListaDesejosEProdutos(idCliente) {
+        const params = {}
+        // const id = idCliente
+        if (idCliente !== undefined && idCliente !== null) {
+            params._id = idCliente
+        }
+        const cliente = await Cliente.findById(params)
+        const wishlistCliente = cliente.idCliente
+        console.log(cliente)
+        return wishlistCliente
     }
 
     buscarPaginadoListaDesejos(query, pagina, limite) {

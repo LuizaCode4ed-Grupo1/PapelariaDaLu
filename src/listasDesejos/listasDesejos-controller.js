@@ -14,11 +14,15 @@ class listaDesejosController {
         return listaDesejosService.listarListaDesejos()  
     }
 
-
     listarListaDesejosPorId(_id) {
         console.log('Exibindo Lista de Desejos por Id: ', _id)
         const listaDesejosService = new ListaDesejosService()
         return listaDesejosService.listarListaDesejosPorId(_id)
+    }
+
+    listarIdClientesListaDesejosEProdutos(idCliente) {
+        const listaDesejosService = new ListaDesejosService()
+        return listaDesejosService.listarIdClientesListaDesejosEProdutos(idCliente)
     }
 
     buscarPaginadoListaDesejos(params_query) {
