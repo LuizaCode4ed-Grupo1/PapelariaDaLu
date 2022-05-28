@@ -36,75 +36,174 @@ const clienteController = new ClienteController()
  *                  type: Number
  *                  description: O número de telefone do usuário
  *              wishlists:
- *                  type: Array de ObjectId
- *                  description: Array que armazena os IDs das listas de desejos do usuário
+ *                 type: array
+ *                 description: Array que armazena os IDs das listas de desejos do usuário
+ *                 items:
+ *                   type: objectId
+ *                   uniqueItems: true
  */
 
 /**
  *  @swagger
  * /clientes:
  *   post:
- *     description: Cadastra um novo cliente
+ *     tags:
+ *     - clientes
+ *     summary: Cadastra um novo cliente
+ *     description: ""
+ *     parameters:
+ *     - in: body
+ *       name: body
+ *       description: O objeto "Cliente" a ser adicionado ao banco de dados.
+ *       required: true
+ *       schema:
+ *         type: object
+ *         required:
+ *         - name
+ *         - email
+ *         - birthday
+ *         - cpf
+ *         properties:
+ *             _id:
+ *                 type: objectId
+ *                 description: ID gerado automaticamente pelo MongoDB
+ *             name:
+ *                 type: string
+ *                 description: O nome do usuário
+ *             email:
+ *                 type: string
+ *                 description: O email do usuário
+ *             birthday: 
+ *                 type: date
+ *                 description: A data de nascimento do usuário. Deve ser informado no método POST no formato americano (MM/DD/YYYY)
+ *             cpf:
+ *                 type: string
+ *                 description: O CPF do usuário
+ *             phoneNumber:
+ *                 type: number
+ *                 description: O número de telefone do usuário
+ *             wishlists:
+ *                 type: array
+ *                 description: Array que armazena os IDs das listas de desejos do usuário
+ *                 items:
+ *                   type: objectId
+ *                   uniqueItems: true
  *     responses:
  *       200:
- *         description: Sucesso ao cadastrar novo cliente!
+ *         description: Cliente cadastrado com sucesso.
+ *       400:
+ *         description: Bad Request
  */
 router.post('/', (req, res, next) => {
     clienteController.cadastrarCliente(req.body)
-    .then(cliente => res.status(200).send(cliente))
-    .catch(next)
+    .then(cliente => res.status(201).send(cliente))
+    .catch((err) => {
+        res.status(400).json({ message: err.message })
+    })
 })
 
 /**
  * @swagger
  * /clientes:
  *   get:
- *     description: Lista todos os clientes.
+ *     tags:
+ *     - clientes
+ *     summary: Mostra todos os clientes de forma paginada
+ *     description: O cliente pode especificar a página e o número de itens por página a ser retornado. Exemplo, "localhost:3000/clientes/?pagina=2&limite=10"
+ *     parameters:
+ *     - name: pagina
+ *       in: query
+ *       description: Parâmetro opcional que indica a página a ser retornada. Caso não informado, o valor default é 1 (a primeira página de resultados).
+ *       type: integer
+ *     - name: limite
+ *       in: query
+ *       description: Parâmetro opcional que indica o número de resultados por página. Caso não informado, o valor default é 5.
+ *       type: integer
  *     responses:
  *       200:
- *         description: Sucesso ao encontrar todos os clientes!
+ *         description: OK!
+ *       500:
+ *         description: Erro no servidor.  
  */
 router.get('/', (req, res, next) => {
     console.log(req.query)
     clienteController.buscarPaginadoCliente(req.query)
     .then(clientes => res.status(200).send(clientes))
-    .catch(next)
+    .catch((err) => {
+        res.status(500).json({ message: err.message })
+    })
 })
 
 
 /**
  * @swagger
- * /cliente/id:
+ * /clientes/id/{idCliente}:
  *   get:
- *     description: Lista cliente por id
+ *     tags:
+ *     - clientes
+ *     summary: Mostra um cliente com o id especificado
+ *     description: ""
+ *     parameters:
+ *     - name: idCliente
+ *       in: path
+ *       required: true
+ *       description: Id do cliente que se deseja visualizar
+ *       type: string
  *     responses:
  *       200:
- *         description: Sucesso ao encontrar cliente!
+ *         description: OK
+ *       400:
+ *         description: Bad Request
  */
-
 router.get('/id/:id', (req, res, next) => {
     clienteController.listarClientesId(req.params.id)
     .then(cliente => res.status(200).send(cliente))
-    .catch(next)
+    .catch(err => {
+        res.status(400).json({ message: err.message })
+    })
 })
 
 // Buscar pelo idCliente e retornar listas de desejos
+/**
+ * @swagger
+ * /clientes/listasDesejos/{idCliente}:
+ *   get:
+ *     tags:
+ *     - clientes
+ *     summary: Mostra as listas de desejos de um cliente especificado
+ *     description: ""
+ *     parameters:
+ *     - name: idCliente
+ *       in: path
+ *       required: true
+ *       description: Id do cliente que se deseja visualizar
+ *       type: string
+ *     responses:
+ *       200:
+ *         description: OK
+ *       400:
+ *         description: Bad Request
+ */
 router.get('/listasDesejos/:id', (req, res, next) => {
     clienteController.listarClientesEListaDesejos(req.params.id)
     .then(cliente => res.status(200).send(cliente))
-    .catch(next)
+    .catch(err => {
+        res.status(400).json({ message: err.message })
+    })
 })
 
 /**
  * @swagger
- * /cliente/email:
+ * /clientes/email/{emailCliente}:
  *   get:
+ *     tags: 
+ *     - clientes
+ *     summary: 
  *     description: Lista cliente por email
  *     responses:
  *       200:
  *         description: Sucesso ao encontrar cliente!
  */
-
 router.get('/email/:email', (req, res, next) => {
     clienteController.listarClientesEmail(req.params.email)
     .then(cliente => res.status(200).send(cliente))
@@ -115,33 +214,48 @@ router.get('/email/:email', (req, res, next) => {
  * @swagger
  * /cliente:
  *   patch:
- *     description: Atualiza um cliente pelo id
+ *     tags:
+ *     - clientes
+ *     summary: Atualiza um cliente já cadastrado
+ *     description: ""
+ *     parameters:
+ *     - name: idCliente
+ *       in: path
+ *       required: true
+ *       description: Id do cliente a ser atualizado
+ *       type: string
  *     responses:
  *       200:
- *         description: Sucesso ao encontrar cliente!
+ *         description: OK!
+ *       500: 
+ *         desciption: Erro no servidor.
  */
-
 router.patch('/:_id', (req, res, next) => {
     clienteController.atualizarCliente(req.params._id, req.body)
     .then(cliente => res.status(200).send(cliente))
-    .catch(next)
+    .catch(err => {
+        res.status(500).json({ message: err.message })
+    })
 })
 
 /**
  * @swagger
  * /cliente:
  *   delete:
- *     description: Remove um cliente a partir do seu id
+ *     tags:
+ *     - clientes
+ *     sumary: Remove um cliente a partir do seu id
+ *     description: ""
  *     responses:
- *       200:
- *         description: Sucesso ao encontrar cliente!
+ *       204:
+ *         description: Cliente deletado com sucesso.
  */
-
-
 router.delete('/:_id', (req, res, next) => {
     clienteController.removerCliente(req.params._id)
-    .then(cliente => res.status(200).send(cliente))
-    .catch(next)
+    .then(cliente => res.status(204).send(cliente))
+    .catch(err => {
+        res.status(500).json({ message: err.message })
+    })
 })
 
 export default router

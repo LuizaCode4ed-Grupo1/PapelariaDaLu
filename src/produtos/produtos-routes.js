@@ -209,7 +209,6 @@ router.get('/', (req, res) => {
  *         description: Operação relizada com sucesso.
  *       500:
  *         description: Erro no servidor.   
- * 
  */
 router.get('/listasDesejos/:id', (req, res, next) => {
     produtoController.listarProdutosEListaDesejos(req.params.id)
