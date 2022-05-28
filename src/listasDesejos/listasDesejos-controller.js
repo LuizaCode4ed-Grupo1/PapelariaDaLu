@@ -52,6 +52,11 @@ class listaDesejosController {
         return listaDesejosService.removerListaDesejo(idListaDesejos)
     }    
 
+    adicionarProduto(idListaDesejos, idProduto) {
+        const listaDesejosService = new ListaDesejosService()
+        return listaDesejosService.adicionarProduto(idListaDesejos, idProduto)
+    }
 }
+
 
 export default listaDesejosController

@@ -26,12 +26,12 @@ class ListaDesejosService {
         return ListaDesejos.find()
     }
 
-    listarListaDesejosPorId(_id) {
+    async listarListaDesejosPorId(_id) {
         const params = {}
         if (_id !== undefined && _id !== null) {
             params._id = _id
         }
-        return ListaDesejos.find(params)
+        return await ListaDesejos.find(params)
     }
 
     async listarIdClientesListaDesejosEProdutos(idCliente) {
@@ -58,6 +58,11 @@ class ListaDesejosService {
 
     removerListaDesejo(idListaDesejos) {
         return ListaDesejos.findOneAndDelete({_id: idListaDesejos})
+    }
+
+    async adicionarProduto(idListaDesejos, idProduto) {
+        await ListaDesejos.findOneAndUpdate({ _id: idListaDesejos }, { $push: { idProduto: idProduto }})
+        return ListaDesejos.findById(idListaDesejos) 
     }
 
 
