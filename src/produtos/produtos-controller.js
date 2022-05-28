@@ -22,6 +22,11 @@ class ProdutoController {
         return produtoService.removerProduto(codigoProduto)
     }
 
+    listarProdutosId(idProduto) {
+        const clienteService = new ProdutoService()
+        return clienteService.listarProdutosId(idProduto)
+    }
+
     buscarPaginadoProduto(query) {
         const produtoService = new ProdutoService()
         return produtoService.buscarPaginadoProduto(query)

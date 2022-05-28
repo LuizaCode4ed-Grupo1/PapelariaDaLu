@@ -210,6 +210,15 @@ router.get('/', (req, res) => {
  *       500:
  *         description: Erro no servidor.   
  */
+
+ router.get('/id/:id', (req, res, next) => {
+    produtoController.listarProdutosId(req.params.id)
+    .then(produto => res.status(200).send(produto))
+    .catch(err => {
+        res.status(400).json({ message: err.message })
+    })
+})
+
 router.get('/listasDesejos/:id', (req, res, next) => {
     produtoController.listarProdutosEListaDesejos(req.params.id)
     .then(produto => res.status(200).send(produto))

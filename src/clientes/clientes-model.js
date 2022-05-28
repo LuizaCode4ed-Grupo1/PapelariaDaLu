@@ -39,7 +39,7 @@ const schema = new Schema({
     wishlists: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'ListaDesejos'
-    }]
+    }],
     
 })
 

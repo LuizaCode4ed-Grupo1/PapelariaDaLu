@@ -32,6 +32,16 @@ class ProdutoService {
         return Produto.findOneAndDelete({_code: codigoProduto})
     }
 
+    
+    listarProdutosId(idProduto) {
+        const params = {}
+        if (idProduto !== undefined && idProduto !== null) {
+            params._id = idProduto
+        }
+        return Produto.find(params)
+    }
+
+
     buscarPaginadoProduto(query, pagina, limite) {
 
         if (pagina === undefined) {
@@ -50,8 +60,8 @@ class ProdutoService {
         return Produto.paginate(query, { page: pagina, limit: limite })
     }
 
-    buscarProdutoPorCodigo(_code) {
-        return Produto.findOne({_code})
+    buscarProdutoPorCodigo(_id) {
+        return Produto.findOne({_id})
     }
 }
 

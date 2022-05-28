@@ -18,6 +18,7 @@ class ListaDesejosService {
 
         // Inserindo o id desta lista de desejos dentro do documento do cliente
         let cliente = await Cliente.findOneAndUpdate({ _id: idCliente }, { $push: {wishlists: novaListaDesejos._id}})
+        let produto = await Produto.findOneAndUpdate({ _id: idProduto }, { $push: {wishlists: novaListaDesejos._id}})
 
         return novaListaDesejos
     }
@@ -35,16 +36,22 @@ class ListaDesejosService {
     }
 
     async listarIdClientesListaDesejosEProdutos(idCliente) {
-        const params = {}
-        const id = idCliente
-        if (idCliente !== undefined && idCliente !== null) {
-            params._id = idCliente
+            const params = {}
+            const id = idCliente
+            if (idCliente !== undefined && idCliente !== null) {
+                params._id = idCliente
+            }
+            const cliente = await Cliente.findById(id)
+            //console.log(cliente)
+            // const res = await Cliente.aggregate([
+            //     { $match: {id: cliente }},
+            //     // { $match: {id: cliente.wishlists}},
+            //     // { $match: {id: cliente.idProduto}},
+            //   ]);
+            const wishlist = cliente.wishlists
+            console.log(wishlist)
+            return wishlist
         }
-        const cliente = await Cliente.findById(id)
-        const wishlist = cliente.wishlists
-        console.log(wishlist)
-        return wishlist
-    }
 
     buscarPaginadoListaDesejos(query, pagina, limite) {
         console.log('Entrou no service')
