@@ -7,6 +7,11 @@ class ProdutoController {
         return produtoService.cadastrarProduto(produto)
     }
 
+    listarProdutosEListaDesejos(idProduto) {
+        const produtoService = new ProdutoService()
+        return produtoService.listarProdutosEListaDesejos(idProduto)
+    }
+
     atualizarProduto(codigoProduto, produto) {
         const produtoService = new ProdutoService()
         return produtoService.atualizarProduto(codigoProduto, produto)

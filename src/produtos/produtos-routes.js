@@ -48,6 +48,13 @@ router.get('/', (req, res) => {
     })
 })
 
+// Buscar pelo Produto e retornar listas de desejos
+router.get('/listasDesejos/:id', (req, res, next) => {
+    produtoController.listarProdutosEListaDesejos(req.params.id)
+    .then(produto => res.status(200).send(produto))
+    .catch(next)
+})
+
 // Atualizar um produto a partir do seu código
 // Status 200: OK
 // Status 400: Bad Request

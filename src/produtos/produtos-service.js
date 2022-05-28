@@ -12,6 +12,18 @@ class ProdutoService {
         return novoProduto.save()
     }
 
+    async listarProdutosEListaDesejos(idProduto) {
+        const params = {}
+        const id = idProduto
+        if (idProduto !== undefined && idProduto !== null) {
+            params._id = idProduto
+        }
+        const produto = await Produto.findById(id)
+        const wishlist = produto.wishlists
+        console.log(produto)
+        return wishlist
+    }
+
     atualizarProduto(codigoProduto, produto) {
         return Produto.findOneAndUpdate({_code: codigoProduto}, produto)
     }
@@ -41,7 +53,6 @@ class ProdutoService {
     buscarProdutoPorCodigo(_code) {
         return Produto.findOne({_code})
     }
-
 }
 
 export default ProdutoService
