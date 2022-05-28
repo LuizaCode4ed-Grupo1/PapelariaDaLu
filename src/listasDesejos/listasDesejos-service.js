@@ -6,6 +6,7 @@ mongoose.connect(config.connectionString)
 import ListaDesejos from './listasDesejos-model'
 import Cliente from '../clientes/clientes-model'
 import Produto from '../produtos/produtos-model'
+import res from 'express/lib/response'
 
 class ListaDesejosService {
 
@@ -65,6 +66,12 @@ class ListaDesejosService {
         return ListaDesejos.findById(idListaDesejos) 
     }
 
+    async verificarSeListaJaContemProduto(idListaDesejos, idProduto) {
+        return await ListaDesejos.find({
+            _id: idListaDesejos,
+            idProduto: idProduto
+        })
+    }
 
 }
 

@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import mongoose from 'mongoose'
 import config from '../config'
 
@@ -52,6 +53,17 @@ class ProdutoService {
 
     buscarProdutoPorCodigo(_code) {
         return Produto.findOne({_code})
+    }
+
+    async buscarProdutoPorId(idProduto) {
+        if (!mongoose.Types.ObjectId.isValid(idProduto)) 
+            return 'invalidIdProduto'
+        try {
+            const _id = new ObjectId(idProduto)
+            return await Produto.find({_id})
+        } catch (err) {
+            return {'error': 'error on produtos-service'}
+        }
     }
 }
 
