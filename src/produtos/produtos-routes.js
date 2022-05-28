@@ -5,6 +5,49 @@ const router = express.Router()
 import ProdutoController from './produtos-controller'
 const produtoController = new ProdutoController()
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      Produto:
+ *          type: object
+ *          required:
+ *              - name
+ *              - description
+ *              - _code
+ *          properties:
+ *              _id:
+ *                  type: ObjectId
+ *                  description: ID gerado automaticamente pelo MongoDB.
+ *              name:
+ *                  type: String
+ *                  description: O nome do produto. Deve ser único.
+ *                  uniqueItems: true
+ *              description:
+ *                  type: String
+ *                  description: A descrição do produto.
+ *              _code: 
+ *                  type: String
+ *                  description: O código do produto informado pelo usuário. Deve ser único.
+ *                  uniqueItems: true
+ *              price:
+ *                  type: String
+ *                  description: O preço do produto. Caso não informado, o default é 0.00.
+ *              brand:
+ *                  type: String
+ *                  description: A marca do produto. Caso não informado, o default é a string "Não informado".
+ *              color:
+ *                  type: String
+ *                  description: A cor principal do produto. Caso não informado, o default é a string "Não informado".
+ *              wishlists:
+ *                  type: array
+ *                  description: Array que armazena os IDs das listas de desejos que contêm o produto.
+ *                  items: 
+ *                      type: ObjectId
+ *                  uniqueItems: true
+ *                  
+ */
+
 // Cadastrar um novo produto
 // Status 201: Created
 // Status 400: Bad Request
