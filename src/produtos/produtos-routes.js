@@ -160,7 +160,7 @@ router.patch('/:_code', verificarSeProdutoExiste, verificarSeClienteTentouAltera
  *       type: integer
  *     responses:
  *       200:
- *         description: Operação relizada com sucesso
+ *         description: Operação realizada com sucesso
  *       500:
  *         description: Erro no servidor   
  * 
@@ -197,7 +197,7 @@ router.get('/', (req, res) => {
  *       type: string
  *     responses:
  *       200:
- *         description: Operação relizada com sucesso
+ *         description: Operação realizada com sucesso
  *       500:
  *         description: Erro no servidor   
  */
@@ -209,6 +209,26 @@ router.get('/listasDesejos/:id', (req, res, next) => {
     })
 })
 
+/**
+ * @swagger
+ * /produtos/id/{idProdutos}:
+ *   get:
+ *     tags:
+ *     - produtos
+ *     summary: Mostra um produto com o id especificado
+ *     description: ""
+ *     parameters:
+ *     - name: idProduto
+ *       in: path
+ *       required: true
+ *       description: Id do produto que se deseja visualizar
+ *       type: string
+ *     responses:
+ *       200:
+ *         description: Operação realizada com sucesso
+ *       500:
+ *         description: Erro no servidor
+ */
 router.get('/id/:id', (req, res) => {
     produtoController.buscarProdutoPorId(req.params.id)
     .then(produto => res.status(200).send(produto))

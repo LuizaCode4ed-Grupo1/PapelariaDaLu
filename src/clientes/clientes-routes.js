@@ -121,7 +121,7 @@ router.post('/', verificarSeClienteTentouCadastrarComWishlist, (req, res, next) 
  *       type: integer
  *     responses:
  *       200:
- *         description: OK
+ *         description: Operação realizada com sucesso
  *       500:
  *         description: Erro no servidor  
  */
@@ -149,7 +149,7 @@ router.get('/', (req, res, next) => {
  *       type: string
  *     responses:
  *       200:
- *         description: OK
+ *         description: Operação realizada com sucesso
  *       400:
  *         description: Bad Request
  */
@@ -177,7 +177,7 @@ router.get('/id/:id', (req, res, next) => {
  *       type: string
  *     responses:
  *       200:
- *         description: OK
+ *         description: Operação realizada com sucesso
  *       400:
  *         description: Bad Request
  */
@@ -199,7 +199,7 @@ router.get('/listasDesejos/:id', (req, res, next) => {
  *     description: ""
  *     responses:
  *       200:
- *         description: Sucesso ao encontrar cliente
+ *         description: Operação realizada com sucesso
  */
 router.get('/email/:email', (req, res, next) => {
     clienteController.listarClientesEmail(req.params.email)
@@ -223,9 +223,9 @@ router.get('/email/:email', (req, res, next) => {
  *       type: string
  *     responses:
  *       200:
- *         description: OK
+ *         description: Operação realizada com sucesso
  *       500: 
- *         desciption: Erro no servidor
+ *         description: Erro no servidor
  */
 router.patch('/:_id', (req, res, next) => {
     clienteController.atualizarCliente(req.params._id, req.body)

@@ -133,7 +133,7 @@ router.get('/', (req, res, next) => {
  *       type: string
  *     responses:
  *       200:
- *         description: OK
+ *         description: Operação realizada com sucesso
  *       400:
  *         description: Bad Request
  */
@@ -159,7 +159,7 @@ router.get('/id/:_id', (req, res, next) => {
  *       type: string
  *     responses:
  *       200:
- *         description: OK
+ *         description: Operação realizada com sucesso
  *       400:
  *         description: Bad Request
  */
