@@ -57,7 +57,7 @@ class ClienteController {
         const clienteService = new ClienteService()
         return clienteService.removerCliente(idCliente)
     }    
-
+    
 }
 
 export default ClienteController
