@@ -252,9 +252,8 @@ router.get('/id/:id', (req, res) => {
  *         description: Bad Request
  * 
  */
-router.delete('/:_code', verificarSeProdutoExiste, (req, res) => {
-    produtoController.removerProduto(req.params._code)
-    .then(produto => res.status(204).json({ message: 'Produto deletado com sucesso.' }))
+router.delete('/:id', verificarSeProdutoExiste, (req, res) => {
+    produtoController.removerProduto(req, res)
     .catch(err => {
         res.status(400).json({ message: err.message })
     })
@@ -263,7 +262,7 @@ router.delete('/:_code', verificarSeProdutoExiste, (req, res) => {
 async function verificarSeProdutoExiste(req, res, next) {
     let produto
     try {
-        produto = await produtoController.buscarProdutoPorCodigo(req.params._code)
+        produto = await produtoController.buscarProdutoPorId(req.params.id)
         if (produto == null) {
             return res.status(404).json({ message: 'Não foi encontrado nenhum produto com o código especificado.' })
         }

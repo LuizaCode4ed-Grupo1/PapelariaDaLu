@@ -28,7 +28,7 @@ class ProdutoController {
     }
 
    async removerProduto(req, res) {
-        let idProduto = req.params._id
+        let idProduto = req.params.id
 
         // TODO: Verificar se Produto possui wishlists
         let checkListasProdutos = await this.verificarSeProdutoEstaNaListaDesejos(idProduto)
@@ -39,7 +39,7 @@ class ProdutoController {
         //TODO: Remove Produto pelo id
         const produtoService = new ProdutoService()
         let resultado = produtoService.removerProduto(idProduto)
-        return res.status(200).json({ message: `O Produto com codigo ${codigoProduto} foi deletado com suceso` })
+        return res.status(200).json({ message: `O Produto com codigo ${idProduto} foi deletado com suceso` })
     }
 
     async verificarSeProdutoEstaNaListaDesejos(idProduto) {
