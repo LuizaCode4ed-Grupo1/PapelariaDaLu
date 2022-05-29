@@ -87,5 +87,6 @@ class ClienteController {
         return false
     }
 
+}
 
 export default ClienteController
