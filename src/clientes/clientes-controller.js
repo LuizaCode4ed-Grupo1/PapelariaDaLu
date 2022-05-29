@@ -57,7 +57,21 @@ class ClienteController {
         const clienteService = new ClienteService()
         return clienteService.removerCliente(idCliente)
     }    
-    
+
+
+    async verificarSeClientePossuiListaDesejos(idCliente) {
+        const clienteService = new ClienteService()
+        let cliente = await clienteService.listarClientesId(idCliente)
+        
+        .catch(err => { 
+            console.log(err)
+            return false
+        })
+        console.log(cliente)
+
+        console.log(cliente.wishlists)
+        return false
+    }
 }
 
 export default ClienteController
