@@ -1,6 +1,5 @@
 import ListaDesejosService from './listasDesejos-service'
 import ProdutoService from '../produtos/produtos-service'
-import ClienteService from './clientes-service'
 import { ObjectId } from 'mongodb'
 
 class listaDesejosController {
@@ -86,6 +85,7 @@ class listaDesejosController {
     }
 
     async removerProdutoDaListaDesejo(req, res) {
+        const idListaDesejos = req.params._id
         const idProduto = req.body.idProduto
 
         // (1) Verificar se produto existe
@@ -106,10 +106,16 @@ class listaDesejosController {
         }
 
         // TODO: (3) Verificar se a lista só possui um item (não podemos deixar uma lista de desejos vazia)
-
+        let checkProduto2 = await this.verificarSeListaPossuiApenasUmProduto(idListaDesejos)
+        if (checkProduto2) {
+            return res.status(400).json({ message: `Não podemos deletar o produto desta lista pois não podemos deixar uma lista de desejos vazia. Nenhuma alteração foi realizada.` })
+        }
 
         // Se tudo for validado, remover o produto da lista + remover lista do produto
         // Retornar a lista atualizada.
+        //let resultado = await removerProdutoDeUmaListaDesejos(idListaDesejos, idProduto)
+        let resultado = 'Validações check'
+        return res.status(200).send(resultado)
 
     }
 
@@ -191,22 +197,26 @@ class listaDesejosController {
         }
     }
 
-    async verificarSeListaPossuiApenasUmProduto(idCliente) {
-        const clienteService = new ClienteService()
+    /**
+     * Verifica se existe apenas um produto na idListaDesejos, retornando true caso sim e false caso contrário.
+     * @param {ObjectId} idListaDesejos 
+     * @returns {Promise<Boolean>}
+     */
+    async verificarSeListaPossuiApenasUmProduto(idListaDesejos) {
+        const listaDesejosService = new ListaDesejosService()
+        try {
+            let lista = await listaDesejosService.listarListaDesejosPorId(idListaDesejos)
+            let arrayProdutos = lista[0].idProduto
 
-        let cliente = await clienteService.listarClientes(idCliente)
-        .catch(err => { 
-            console.log(err)
+            if (arrayProdutos.length === 1) {
+                return true
+            } else {
+                return false
+            }
+        } catch(err) {
+            console.log(err.message)
             return false
-        })
-
-        let arrayWishlists = cliente[0].wishlists
-
-        if(arrayWishlists.length === 1) {
-            return true
         }
-        return false
-
     }
 }
 

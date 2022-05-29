@@ -73,6 +73,10 @@ class ListaDesejosService {
         })
     }
 
+    async removerProdutoDeUmaListaDesejos(idListaDesejos, idProduto) {
+        
+    }
+
 }
 
 export default ListaDesejosService
