@@ -41,6 +41,20 @@ router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
     .catch(next)
 })
 
+// Adicionar um produto em uma lista de desejos existente
+router.post('/:idListaDesejos', (req, res) => {
+    listaDesejosController.adicionarProduto(req, res)
+    //.then(listaDesejos => res.status(200).send(listaDesejos))
+    .catch(err => {
+        res.status(500).json({ message: err.message })
+    })
+})
+
+router.delete('/:_id', (req, res, next) => {
+    listaDesejosController.removerListaDesejo(req.params._id)
+    .then(listaDesejos => res.status(200).send(listaDesejos))
+    .catch(next)
+})
 
 async function verificarSeClienteTentouAlterarId(req, res, next) {
     if(req.body.idCliente) {
@@ -50,11 +64,5 @@ async function verificarSeClienteTentouAlterarId(req, res, next) {
     }
     next()
 }
-
-router.delete('/:_id', (req, res, next) => {
-    listaDesejosController.removerListaDesejo(req.params._id)
-    .then(listaDesejos => res.status(200).send(listaDesejos))
-    .catch(next)
-})
 
 export default router;

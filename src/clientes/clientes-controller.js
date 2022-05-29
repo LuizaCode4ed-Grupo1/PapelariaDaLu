@@ -32,15 +32,15 @@ class ClienteController {
     buscarPaginadoCliente(params_query) {
         console.log('Entrou na busca paginada')
         
-        var pagina = params_query.pagina
-        var limite = params_query.limite
+        let pagina = params_query.pagina
+        let limite = params_query.limite
 
-        if (pagina === undefined) {
+        if (!pagina) {
             pagina = 1
-         } 
-         if (limite === undefined) {
-             limite = 5
-         }
+        } 
+        if (!limite) {
+            limite = 5
+        }
 
         const clienteService = new ClienteService()
         return clienteService.buscarPaginadoCliente(params_query, pagina, limite)
