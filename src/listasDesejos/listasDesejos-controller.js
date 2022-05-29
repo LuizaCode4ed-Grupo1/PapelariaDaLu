@@ -3,10 +3,26 @@ import ProdutoService from '../produtos/produtos-service'
 
 class listaDesejosController {
 
-    cadastrarListaDesejos(idCliente, idProduto, nameList) {
-        console.log('Cadastrando uma nova lista de desejos....', idCliente, idProduto, nameList)
+    async cadastrarListaDesejos(req, res) {
+        // console.log('Cadastrando uma nova lista de desejos....', idCliente, idProduto, nameList)
+        // const listaDesejosService = new ListaDesejosService()
+        // return listaDesejosService.cadastrarListaDesejos(idCliente, idProduto, nameList)
+        const idCliente = req.body.idCliente
+        const idProduto = req.body.idProduto
+        const nameList = req.body.nameList
+
+        if (!idCliente || !idProduto || !nameList) {
+            return res.status(400).json({ message: 'Para cadastrar uma nova lista é necessário informar idCliente, idProduto e nameList' })
+        }
+
+        // TODO : Verificar se cliente existe
+
+        // TODO : Verificar se produto existe
+        
         const listaDesejosService = new ListaDesejosService()
-        return listaDesejosService.cadastrarListaDesejos(idCliente, idProduto, nameList)
+        const resultado = await listaDesejosService.cadastrarListaDesejos(idCliente, idProduto, nameList)
+        return res.status(201).send(resultado)
+
     }
 
     listarListaDesejos(){

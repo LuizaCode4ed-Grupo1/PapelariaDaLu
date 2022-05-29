@@ -43,12 +43,10 @@ class ListaDesejosService {
         }
         const cliente = await Cliente.findById(id)
         const wishlist = cliente.wishlists
-        console.log(wishlist)
         return wishlist
     }
 
     buscarPaginadoListaDesejos(query, pagina, limite) {
-        console.log('Entrou no service')
         const resultado = ListaDesejos.paginate(query, { page: pagina, limit: limite })
         return resultado
     }
