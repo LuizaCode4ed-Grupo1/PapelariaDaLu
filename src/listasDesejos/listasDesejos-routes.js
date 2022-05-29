@@ -123,6 +123,7 @@ router.get('/', (req, res, next) => {
     })
 })
 
+// Buscar uma lista de desejos pelo id
 /**
  * @swagger
  * /listasDesejos/id/{idListasDesejos}:
@@ -143,8 +144,6 @@ router.get('/', (req, res, next) => {
  *       400:
  *         description: Bad Request
  */
-
-// Buscar uma lista de desejos pelo id
 router.get('/id/:_id', (req, res, next) => {
     listaDesejosController.listarListaDesejosPorId(req.params._id)
     .then(listaDesejos => res.status(200).send(listaDesejos))
@@ -181,6 +180,27 @@ router.get('/listasDesejos/:id', (req, res, next) => {
     })
 })
 
+// Atualizar lista de desejos a partir do seu código
+// Status 200: OK
+// Status 400: Bad Request
+/**
+ * @swagger
+ * /listasDesejos:
+ *   patch:
+ *     tags:
+ *     - listasDesejos
+ *     summary: Atualiza uma lista de desejos já cadastrada
+ *     description: ""
+ *     parameters:
+ *     - name: body
+ *       in: body
+ *       description: Objeto que contém os pares de chave-valor a serem atualizados. O código da lista de desejos não pode ser alterado!
+ *     responses:
+ *       200:
+ *         description: Operação realizada com sucesso.
+ *       400:
+ *         description: Bad Request || Não é permitido alterar o código do produto.
+ */
 router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
     listaDesejosController.atualizarListaDesejos(req.params._id, req.body)
     .then(listaDesejos => res.status(200).send(listaDesejos))
