@@ -49,7 +49,7 @@ class ListaDesejosService {
 
     buscarPaginadoListaDesejos(query, pagina, limite) {
         console.log('Entrou no service')
-        var resultado = ListaDesejos.paginate(query, { page: pagina, limit: limite })
+        const resultado = ListaDesejos.paginate(query, { page: pagina, limit: limite })
         return resultado
     }
 
