@@ -78,7 +78,7 @@ const listaDesejosController = new ListaDesejos()
  *       201:
  *         description: Lista de desejos cadastrada com sucesso.
  *       500:
- *         description: Internal Server Error.
+ *         description: Erro no servidor.
  */
 router.post('/', (req, res) => {
     listaDesejosController.cadastrarListaDesejos(req, res)
@@ -88,12 +88,61 @@ router.post('/', (req, res) => {
 })
 
 // Listar lista de desejos e busca paginada
+// Status 200: OK
+// Status 500 : Server Error
+/**
+ * @swagger
+ * /listasDesejos:
+ *   get:
+ *     tags:
+ *     - listasDesejos
+ *     summary: Mostra todas as listas de desejos de forma paginada
+ *     description: O cliente pode especificar a página e o número de itens por página a ser retornado. Exemplo, "localhost:3000/listasDesejos/?pagina=2&limite=10"
+ *     parameters:
+ *     - name: pagina
+ *       in: query
+ *       description: Parâmetro opcional que indica a página a ser retornada. Caso não informado, o valor default é 1 (a primeira página de resultados).
+ *       type: integer
+ *     - name: limite
+ *       in: query
+ *       description: Parâmetro opcional que indica o número de resultados por página. Caso não informado, o valor default é 5.
+ *       type: integer
+ *     responses:
+ *       200:
+ *         description: Operação realizada com sucesso.
+ *       500:
+ *         description: Erro no servidor.
+ * 
+ */
 router.get('/', (req, res, next) => {
     console.log(req.query)
     listaDesejosController.buscarPaginadoListaDesejos(req.query)
     .then(listaDesejos => res.status(200).send(listaDesejos))
-    .catch(next)
+    .catch((err) => {
+        res.status(500).json({ message: err.message })
+    })
 })
+
+/**
+ * @swagger
+ * /listasDesejos/id/{idListasDesejos}:
+ *   get:
+ *     tags:
+ *     - listasDesejos
+ *     summary: Mostra uma lista de desejos com o id especificado
+ *     description: ""
+ *     parameters:
+ *     - name: idListasDesejos
+ *       in: path
+ *       required: true
+ *       description: Id da Lista de Desejos que se deseja visualizar
+ *       type: string
+ *     responses:
+ *       200:
+ *         description: OK
+ *       400:
+ *         description: Bad Request
+ */
 
 // Buscar uma lista de desejos pelo id
 router.get('/id/:_id', (req, res, next) => {
@@ -102,11 +151,34 @@ router.get('/id/:_id', (req, res, next) => {
     .catch(next)
 })
 
+
 // Buscar pelo IdCliente e retornar listas de desejos e produtos
+/**
+ * @swagger
+ * /listasDesejos/listasDesejos/{idCliente}:
+ *   get:
+ *     tags:
+ *     - listasDesejos
+ *     summary: Mostra as listas de desejos com os seus produtos, a partir de um cliente especificado
+ *     description: ""
+ *     parameters:
+ *     - name: idCliente
+ *       in: path
+ *       required: true
+ *       description: Id do cliente que se deseja visualizar
+ *       type: string
+ *     responses:
+ *       200:
+ *         description: OK
+ *       400:
+ *         description: Bad Request
+ */
 router.get('/listasDesejos/:id', (req, res, next) => {
     listaDesejosController.listarIdClientesListaDesejosEProdutos(req.params.id)
     .then(listaDesejos => res.status(200).send(listaDesejos))
-    .catch(next)
+    .catch(err => {
+        res.status(400).json({ message: err.message })
+    })
 })
 
 router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
