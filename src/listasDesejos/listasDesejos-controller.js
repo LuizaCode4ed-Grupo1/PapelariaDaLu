@@ -90,15 +90,15 @@ class listaDesejosController {
         const idProduto = req.body.idProduto
         const listaDesejosService = new ListaDesejosService()
         
+        // Validação de recebimento de todos os parâmetros necessários
+        if (!idListaDesejos || !idProduto) {
+            return res.status(400).json({ message: 'Para adicionar um produto em uma lista é necessário informar o idListaDesejos na URL da requisição e o idProduto no corpo da requisição.' })
+        }
+
         // Validação de idListaDesejos - Verificar se idListaDesejos existe
-        try {
-            // Essa promise retorna um array de resultados. Se array retornar vazio é pq não encontrou nenhuma lista com os params especificados
-            let wishlist = await listaDesejosService.listarListaDesejosPorId(idListaDesejos)
-            if (wishlist.length === 0) {
-                return res.status(404).json({ message: `Não foi encontrada nenhuma lista de desejos com o id informado: ${idListaDesejos}` })
-            }
-        } catch (err) {
-            return res.status(500).json({ message: err.message })
+        let checkLista = await this.verificarSeListaExiste(idListaDesejos)
+        if (!checkLista) {
+            return res.status(400).json({ message: `O idListaDesejos informado não é válido: ${idListaDesejos}` })
         }
 
         // Validação de idProduto - Verificar se idProduto existe
@@ -111,14 +111,15 @@ class listaDesejosController {
         try {
             let produto = await listaDesejosService.verificarSeListaJaContemProduto(idListaDesejos, idProduto)
             if (produto.length !== 0) {
-                return res.status(400).json({ message: `A lista já contém o produto informado.` })
+                return res.status(400).json({ message: `A lista já contém o produto informado. Nenhuma alteração foi realizada.` })
             }
         } catch (err) {
             return res.status(500).json({ message: err.message })
         }
 
         // Depois de tudo validado:
-        return listaDesejosService.adicionarProduto(idListaDesejos, idProduto)
+        let resultado = await listaDesejosService.adicionarProduto(idListaDesejos, idProduto)
+        return res.status(201).send(resultado)
     }
 
     /**
