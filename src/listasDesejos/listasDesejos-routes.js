@@ -196,10 +196,19 @@ router.post('/:idListaDesejos', (req, res) => {
 })
 
 router.delete('/:_id', (req, res) => {
-    listaDesejosController.removerListaDesejo(req, res)
-    .catch(err => {
-        res.status(500).json({ message: err.message })
-    })
+    // Se o usuário informar o código de um produto no corpo da requisição, entendemos que ele quer deletar esse produto da lista de desejos
+    if(req.body.idProduto) {
+        listaDesejosController.removerProdutoDaListaDesejo(req, res)
+        .catch(err => {
+            res.status(500).json({ message: err.message })
+        })
+    } else {
+        // Caso contrário, entendemos que ele quer deletar a lista inteira
+        listaDesejosController.removerListaDesejo(req, res)
+        .catch(err => {
+            res.status(500).json({ message: err.message })
+        })
+    }
 })
 
 async function verificarSeClienteTentouAlterarId(req, res, next) {
