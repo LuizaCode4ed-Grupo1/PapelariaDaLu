@@ -33,20 +33,22 @@ class ProdutoService {
 
     buscarPaginadoProduto(query, pagina, limite) {
 
-        if (pagina === undefined) {
-           pagina = 1
-        } 
-        if (limite === undefined) {
-            limite = 5
-        }
-        if (query.name) {
-            query.name = new RegExp(query.name, 'i')
-        }
-        if (query._code) {
-            query._code = new RegExp(query._code, 'y')
-        }
+        // if (pagina === undefined) {
+        //    pagina = 1
+        // } 
+        // if (limite === undefined) {
+        //     limite = 5
+        // }
+        // if (query.name) {
+        //     query.name = new RegExp(query.name, 'i')
+        // }
+        // if (query._code) {
+        //     query._code = new RegExp(query._code, 'y')
+        // }
 
-        return Produto.paginate(query, { page: pagina, limit: limite })
+        // return Produto.paginate(query, { page: pagina, limit: limite })
+        const resultado = Produto.paginate(query, { page: pagina, limit: limite })
+        return resultado
     }
 
 
