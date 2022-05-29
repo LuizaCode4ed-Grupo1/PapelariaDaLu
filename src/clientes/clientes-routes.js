@@ -250,9 +250,8 @@ router.patch('/:_id', (req, res, next) => {
  *       204:
  *         description: Cliente deletado com sucesso.
  */
-router.delete('/:_id', (req, res, next) => {
+router.delete('/:_id', (req, res) => {
     clienteController.removerCliente(req, res)
-    .then(cliente => res.status(204).send(cliente))
     .catch(err => {
         res.status(500).json({ message: err.message })
     })
