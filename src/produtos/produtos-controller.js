@@ -17,9 +17,27 @@ class ProdutoController {
         return produtoService.atualizarProduto(codigoProduto, produto)
     }
 
-    buscarPaginadoProduto(query) {
+    buscarPaginadoProduto(params_query) {
+        
+        let pagina = params_query.pagina
+        let limite = params_query.limite
+
+        if (!pagina) {
+            pagina = 1
+        } 
+        if (!limite) {
+            limite = 5
+        }
+
+        if (params_query.name) {
+            params_query.name = new RegExp(params_query.name, 'i')
+        }
+        if (params_query.email) {
+            params_query.email = new RegExp(params_query.email, 'i')
+        }
+
         const produtoService = new ProdutoService()
-        return produtoService.buscarPaginadoProduto(query)
+        return produtoService.buscarPaginadoProduto(params_query, pagina, limite)
     }
 
     buscarProdutoPorId(idProduto) {
