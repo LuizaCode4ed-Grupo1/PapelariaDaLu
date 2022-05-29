@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import mongoose from 'mongoose'
 import config from '../config'
 
@@ -14,8 +15,9 @@ class ClienteService {
         return novoCliente.save()
     }
 
-    listarClientes(){
-        return Cliente.find()
+    async listarClientes(idCliente){
+        let idCliente2 = new ObjectId(idCliente)
+        return await Cliente.find({ _id: idCliente2 })
     }
 
     listarClientesId(idCliente) {

@@ -52,25 +52,62 @@ class ClienteController {
         return clienteService.atualizarCliente(idCliente, cliente)
     }
 
-    removerCliente(idCliente) {
-        console.log('Removendo o cliente com o id: ', idCliente)
+    async removerCliente(req, res) {
+
+        let idCliente = req.params._id
+        if (!idCliente) {
+            res.status(400).json({ message: 'Para deletar um cliente é necessário informar seu id na URL da requisição.' })
+        }
+
+        // TODO: Verificar se cliente existe
+        let checkCliente = await this.verificarSeClienteExiste(idCliente)
+        if (!checkCliente) {
+            return res.status(400).json({ message: `O idCliente informado não é válido: ${idCliente}` })
+        }
+
+        // TODO: Verificar se cliente possui wishlists
+        let checkListasCliente = await this.verificarSeClientePossuiListaDesejos(idCliente)
+        if (checkListasCliente) {
+            return res.status(400).json({ message: `O cliente com id ${idCliente} não pode ser removido porque ele possui listas de desejos.` })
+        }
+
         const clienteService = new ClienteService()
-        return clienteService.removerCliente(idCliente)
+        let resultado = await clienteService.removerCliente(idCliente)
+        return res.status(200).json({ message: `O cliente com id ${idCliente} foi deletado com suceso` })
     }    
 
+    async verificarSeClienteExiste(idCliente) {
+        const clienteService = new ClienteService()
+        try {
+            let cliente = await clienteService.listarClientesId(idCliente)
+            if (cliente.length === 0) {
+                return false
+            }
+            return true
+        } catch (err) {
+            console.log(err.message)
+            return false
+        }
+    }
 
     async verificarSeClientePossuiListaDesejos(idCliente) {
         const clienteService = new ClienteService()
-        let cliente = await clienteService.listarClientesId(idCliente)
-        
+
+        let cliente = await clienteService.listarClientes(idCliente)
         .catch(err => { 
             console.log(err)
             return false
         })
-        console.log(cliente)
 
-        console.log(cliente.wishlists)
-        return false
+        //console.log(cliente[0].wishlists)
+        let arrayWishlists = cliente[0].wishlists
+        //console.log(arrayWishlists.length)
+
+        if(arrayWishlists.length === 0) {
+            return false
+        }
+        return true
+
     }
 }
 
