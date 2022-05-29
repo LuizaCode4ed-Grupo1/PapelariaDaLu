@@ -57,8 +57,16 @@ class ClienteService {
         return Cliente.findOneAndUpdate({_id: idCliente}, cliente)
     }
 
-    removerCliente(idCliente) {
-        return Cliente.findOneAndDelete({_id: idCliente})
+    removerCliente(wishlists, idCliente) {
+        const params = {}
+        if (wishlists === undefined && wishlists ===null) {
+            params.wishlists = wishlists
+            return Cliente.findOneAndDelete({_id: idCliente})
+        } 
+        else{
+            const erro ='Error: Não é possível deletar clientes com lista de desejos cadastrada!'
+            console.log(erro)
+        }
     }
 }
 

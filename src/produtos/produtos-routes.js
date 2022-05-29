@@ -260,6 +260,9 @@ router.delete('/:_code', verificarSeProdutoExiste, (req, res) => {
     })
 })
 
+
+
+
 async function verificarSeProdutoExiste(req, res, next) {
     let produto
     try {

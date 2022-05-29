@@ -258,6 +258,13 @@ router.delete('/:_id', (req, res, next) => {
     })
 })
 
+// async function verificarSeClientePossuiWishlist(req, res, next) {
+//     if(req.body.wishlists) {
+//         return res.status(400).json({ message: 'Bad Request. Não é permitido excluir um cliente com lista de desejo cadastrada'})
+//     }
+//     next()
+// }
+
 async function verificarSeClienteTentouCadastrarComWishlist(req, res, next) {
     if(req.body.wishlists) {
         return res.status(400).json({ message: 'Bad Request. Não é permitido cadastrar um cliente com listas de desejos.'})
