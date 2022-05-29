@@ -66,10 +66,22 @@ class listaDesejosController {
         return listaDesejosService.atualizarListaDesejos(idListaDesejos, listaDesejos)
     }
 
-    removerListaDesejo(idListaDesejos) {
-        console.log('Removendo a lista de desejo o id: ', idListaDesejos)
+    async removerListaDesejo(req, res) {
+        const idListaDesejos = req.params._id
+        
+        if (!idListaDesejos) {
+            return res.status(400).json({ message: 'Para deletar uma lista de desejos é necessário informar seu id na URL' })
+        }
+
+        // TODO : Verificar se lista existe
+        let checkLista = await this.verificarSeListaExiste(idListaDesejos)
+        if (!checkLista) {
+            return res.status(400).json({ message: `O idListaDesejos informado não é válido: ${idListaDesejos}` })
+        }
+
         const listaDesejosService = new ListaDesejosService()
-        return listaDesejosService.removerListaDesejo(idListaDesejos)
+        const resultado = await listaDesejosService.removerListaDesejo(idListaDesejos)
+        return res.status(200).json({ message: `Lista com id ${idListaDesejos} deletada com sucesso.` })
     }    
 
     async adicionarProduto(req, res) {
@@ -95,16 +107,6 @@ class listaDesejosController {
             return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}` })
         }
 
-        // try {
-        //     let produto = await produtoService.buscarProdutoPorId(idProduto)
-        //     // Por algum motivo essa validação não funcionou da mesma forma que a de isListaDesejos, mas está funcionando assim
-        //     if (produto === 'invalidIdProduto' || produto.length === 0) {
-        //         return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}` })
-        //     }
-        // } catch (err) {
-        //     return res.status(500).json({ message: err.message })
-        // }
-
         // TODO: Implementar validação de idProduto - Verificar se idProduto já está na lista informada
         try {
             let produto = await listaDesejosService.verificarSeListaJaContemProduto(idListaDesejos, idProduto)
@@ -129,6 +131,26 @@ class listaDesejosController {
         try {
             let produto = await produtoService.buscarProdutoPorId(idProduto)
             if (produto === 'invalidIdProduto' || produto.length === 0) {
+                return false
+            } else {
+                return true
+            }
+        } catch(err) {
+            console.log(err.message)
+            return false
+        }
+    }
+
+    /**
+     * Verifica se um idListaDesejos existe atualmente no banco de dados, retornando true caso exista e false caso contrário.
+     * @param {ObjectId} idListaDesejos 
+     * @returns {Promise<Boolean>}
+     */
+    async verificarSeListaExiste(idListaDesejos) {
+        const listaDesejosService = new ListaDesejosService()
+        try {
+            let lista = await listaDesejosService.listarListaDesejosPorId(idListaDesejos)
+            if (lista.length === 0) {
                 return false
             } else {
                 return true
