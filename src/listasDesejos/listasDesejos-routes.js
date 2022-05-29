@@ -32,6 +32,54 @@ const listaDesejosController = new ListaDesejos()
 
 
 // Cadastrar uma nova lista de desejos
+// Status 201: Created
+// Status 500: Internal Server Error
+/**
+ *  @swagger
+ * /listasDesejos:
+ *   post:
+ *     tags:
+ *     - listasDesejos
+ *     summary: Cadastra uma nova lista de desejos
+ *     description: ""
+ *     parameters:
+ *      - in: body
+ *        name: body
+ *        description: O objeto "Lista de Desejos" a ser adicionado no banco de dados
+ *        required: true
+ *        schema:
+ *          type: object
+ *          required:
+ *              - nameList
+ *              - idCliente
+ *              - idProduto
+ *              - createdAt
+ *          properties:
+ *              _id:
+ *                  type: ObjectId
+ *                  description: ID gerado automaticamente pelo MongoDB
+ *              nameList:
+ *                  type: string
+ *                  description: O nome da lista de Desejos.
+ *              idCliente:
+ *                  type: ObjectId
+ *                  description: O ID do cliente no MongoDB. Deve ser único.
+ *                  uniqueItems: true 
+ *              idProduto:
+ *                  type: Array
+ *                  description: O ID do produto no MongoDB.
+ *                  items:
+ *                      type: ObjectId
+ *              createdAt:
+ *                  type: date
+ *                  description: Data de criação da lista de desejos. Caso não informado, o default é a date "Date.now".
+ *              
+ *     responses:
+ *       201:
+ *         description: Lista de desejos cadastrada com sucesso.
+ *       500:
+ *         description: Internal Server Error.
+ */
 router.post('/', (req, res) => {
     listaDesejosController.cadastrarListaDesejos(req, res)
     .catch(err => {

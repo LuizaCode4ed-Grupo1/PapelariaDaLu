@@ -162,8 +162,22 @@ class listaDesejosController {
         }
     }
 
-    async verificarSeClientePossuiListaDesejos(idCliente) {
-        
+    async verificarSeListaPossuiApenasUmProduto(idCliente) {
+        const clienteService = new ClienteService()
+
+        let cliente = await clienteService.listarClientes(idCliente)
+        .catch(err => { 
+            console.log(err)
+            return false
+        })
+
+        let arrayWishlists = cliente[0].wishlists
+
+        if(arrayWishlists.length === 1) {
+            return true
+        }
+        return false
+
     }
 }
 
