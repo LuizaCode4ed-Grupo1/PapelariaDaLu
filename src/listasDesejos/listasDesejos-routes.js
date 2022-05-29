@@ -204,10 +204,47 @@ router.get('/listasDesejos/:id', (req, res, next) => {
 router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
     listaDesejosController.atualizarListaDesejos(req.params._id, req.body)
     .then(listaDesejos => res.status(200).send(listaDesejos))
-    .catch(next)
+    .catch(err => {
+        res.status(400).json({ message: err.message })
+    })
 })
 
-// Adicionar um produto em uma lista de desejos existente
+// Cadastrar um novo produto na lista de desejos
+// Status 201: Created
+// Status 400: Bad Request
+// Status 500: Internal Server Error
+/**
+ *  @swagger
+ * /listasDesejos/{idListasDesejos}:
+ *   post:
+ *     tags:
+ *     - listasDesejos
+ *     summary: Cadastra um novo produto para uma lista de desejos
+ *     description: ""
+ *     parameters:
+ *      - in: body
+ *        name: body
+ *        description: O objeto "Produto" a ser adicionado no banco de dados
+ *        required: true
+ *        schema:
+ *          type: object
+ *          required:
+ *              - idProduto
+ *          properties:
+ *              idProduto:
+ *                  type: Array
+ *                  description: O ID do produto no MongoDB.
+ *                  items:
+ *                      type: ObjectId
+ *              
+ *     responses:
+ *       201:
+ *         description: Lista de desejos cadastrada com sucesso.
+ *       400:
+ *         description: Bad Request.
+ *       500:
+ *         description: Erro no servidor.
+ */
 router.post('/:idListaDesejos', (req, res) => {
     listaDesejosController.adicionarProduto(req, res)
     .catch(err => {
@@ -215,6 +252,36 @@ router.post('/:idListaDesejos', (req, res) => {
     })
 })
 
+/**
+ * @swagger
+ * /listasDesejos/{idListasDesejos}:
+ *   delete:
+ *     tags:
+ *     - listasDesejos
+ *     summary: Remove uma listas de desejos a partir do seu id ou um produto da lista de desejos a partir do id da listas de desejos e do produto a ser deletado
+ *     description: ""
+ *     parameters:
+ *      - in: body
+ *        name: body
+ *        description: O objeto "Produto" a ser deletado na lista de desejos
+ *        required: true
+ *        schema:
+ *          type: object
+ *          required:
+ *              - idProduto
+ *          properties:
+ *              idProduto:
+ *                  type: Array
+ *                  description: O ID do produto no MongoDB.
+ *                  items:
+ *                      type: ObjectId
+ *              
+ *     responses:
+ *       204:
+ *         description: Cliente deletado com sucesso.
+ *       500:
+ *         description: Erro no servidor.
+ */
 router.delete('/:_id', (req, res) => {
     // Se o usuário informar o código de um produto no corpo da requisição, entendemos que ele quer deletar esse produto da lista de desejos
     if(req.body.idProduto) {
