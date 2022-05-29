@@ -28,8 +28,8 @@ class listaDesejosController {
 
     buscarPaginadoListaDesejos(params_query) {
         console.log('Entrou na busca paginada')
-        var pagina = params_query.pagina
-        var limite = params_query.limite
+        let pagina = params_query.pagina
+        let limite = params_query.limite
 
         if (!pagina) {
             pagina = 1
