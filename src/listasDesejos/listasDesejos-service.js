@@ -61,7 +61,7 @@ class ListaDesejosService {
         await ListaDesejos.findOneAndUpdate({ _id: idListaDesejos }, { $push: { idProduto: idProduto }})
 
         // Adicionando o idListaDesejos no array wishlists[] do produto informado
-        await Produto.findOneAndUpdate({ _id: idProduto }, { $push: { wishlists: idListaDesejos } } )
+        await Produto.findOneAndUpdate({ _id: idProduto }, { $push: { wishlists: idListaDesejos }})
 
         return await ListaDesejos.findById(idListaDesejos) 
     }
@@ -71,6 +71,18 @@ class ListaDesejosService {
             _id: idListaDesejos,
             idProduto: idProduto
         })
+    }
+
+    async removerProdutoDeUmaListaDesejos(idListaDesejos, idProduto) {
+        // Remover o idProduto no array idProduto[] da lista de desejos informada
+        await ListaDesejos.findOneAndUpdate({ _id: idListaDesejos }, { $pull: { idProduto: idProduto }})
+
+        // Remover o idListaDesejos do array wishlists[] do produto informado
+        await Produto.findOneAndUpdate({ _id: idProduto }, { $pull: { wishlists: idListaDesejos }})
+
+        // Retornar a lista de desejos atualizada
+        return await ListaDesejos.findById(idListaDesejos) 
+
     }
 
 }

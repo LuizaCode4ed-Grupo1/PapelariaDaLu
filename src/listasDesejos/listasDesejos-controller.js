@@ -82,7 +82,47 @@ class listaDesejosController {
         const listaDesejosService = new ListaDesejosService()
         const resultado = await listaDesejosService.removerListaDesejo(idListaDesejos)
         return res.status(200).json({ message: `Lista com id ${idListaDesejos} deletada com sucesso.` })
-    }    
+    }
+
+    async removerProdutoDaListaDesejo(req, res) {
+        const idListaDesejos = req.params._id
+        const idProduto = req.body.idProduto
+        const listaDesejosService = new ListaDesejosService()
+
+        // (0) Validação de idListaDesejos - Verificar se idListaDesejos existe
+        let checkLista = await this.verificarSeListaExiste(idListaDesejos)
+        if (!checkLista) {
+            return res.status(400).json({ message: `O idListaDesejos informado não é válido: ${idListaDesejos}. Nenhuma alteração foi realizada.` })
+        }
+
+        // (1) Verificar se produto existe
+        let checkProduto1 = await this.verificarSeProdutoExiste(idProduto)
+        if (!checkProduto1) {
+            return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}. Nenhuma alteração foi realizada.` })
+        }
+
+        // (2) Verificar se o produto está na lista de desejos
+        try {
+            let produto = await listaDesejosService.verificarSeListaJaContemProduto(idListaDesejos, idProduto)
+            if (produto.length == 0) {
+                return res.status(400).json({ message: `A lista não contém o produto informado. Nenhuma alteração foi realizada.` })
+            }
+        } catch (err) {
+            return res.status(500).json({ message: err.message })
+        }
+
+        // TODO: (3) Verificar se a lista só possui um item (não podemos deixar uma lista de desejos vazia)
+        let checkProduto2 = await this.verificarSeListaPossuiApenasUmProduto(idListaDesejos)
+        if (checkProduto2) {
+            return res.status(400).json({ message: `Não podemos deletar o produto desta lista pois não podemos deixar uma lista de desejos vazia. Nenhuma alteração foi realizada.` })
+        }
+
+        // Se tudo for validado, remover o produto da lista + remover lista do produto
+        // Retornar a lista atualizada.
+        let resultado = await listaDesejosService.removerProdutoDeUmaListaDesejos(idListaDesejos, idProduto)
+        return res.status(200).send(resultado)
+
+    }
 
     async adicionarProduto(req, res) {
 
@@ -162,8 +202,26 @@ class listaDesejosController {
         }
     }
 
-    async verificarSeClientePossuiListaDesejos(idCliente) {
-        
+    /**
+     * Verifica se existe apenas um produto na idListaDesejos, retornando true caso sim e false caso contrário.
+     * @param {ObjectId} idListaDesejos 
+     * @returns {Promise<Boolean>}
+     */
+    async verificarSeListaPossuiApenasUmProduto(idListaDesejos) {
+        const listaDesejosService = new ListaDesejosService()
+        try {
+            let lista = await listaDesejosService.listarListaDesejosPorId(idListaDesejos)
+            let arrayProdutos = lista[0].idProduto
+
+            if (arrayProdutos.length === 1) {
+                return true
+            } else {
+                return false
+            }
+        } catch(err) {
+            console.log(err.message)
+            return false
+        }
     }
 }
 
