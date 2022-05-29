@@ -57,8 +57,13 @@ class ListaDesejosService {
     }
 
     async adicionarProduto(idListaDesejos, idProduto) {
+        // Adicionando o idProduto no array idProduto[] da lista de desejos informada
         await ListaDesejos.findOneAndUpdate({ _id: idListaDesejos }, { $push: { idProduto: idProduto }})
-        return ListaDesejos.findById(idListaDesejos) 
+
+        // Adicionando o idListaDesejos no array wishlists[] do produto informado
+        await Produto.findOneAndUpdate({ _id: idProduto }, { $push: { wishlists: idListaDesejos } } )
+
+        return await ListaDesejos.findById(idListaDesejos) 
     }
 
     async verificarSeListaJaContemProduto(idListaDesejos, idProduto) {
