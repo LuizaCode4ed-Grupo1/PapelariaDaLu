@@ -38,7 +38,7 @@ class ProdutoController {
     
         //TODO: Remove Produto pelo id
         const produtoService = new ProdutoService()
-        let resultado = produtoService.removerProduto(idProduto)
+        let resultado = await produtoService.removerProduto(idProduto)
         return res.status(200).json({ message: `O Produto com codigo ${idProduto} foi deletado com sucesso!` })
     }
 
