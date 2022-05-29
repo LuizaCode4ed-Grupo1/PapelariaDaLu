@@ -1,5 +1,6 @@
 import ListaDesejosService from './listasDesejos-service'
 import ProdutoService from '../produtos/produtos-service'
+import ClienteService from './clientes-service'
 import { ObjectId } from 'mongodb'
 
 class listaDesejosController {
@@ -82,7 +83,35 @@ class listaDesejosController {
         const listaDesejosService = new ListaDesejosService()
         const resultado = await listaDesejosService.removerListaDesejo(idListaDesejos)
         return res.status(200).json({ message: `Lista com id ${idListaDesejos} deletada com sucesso.` })
-    }    
+    }
+
+    async removerProdutoDaListaDesejo(req, res) {
+        const idProduto = req.body.idProduto
+
+        // (1) Verificar se produto existe
+        let checkProduto1 = await this.verificarSeProdutoExiste(idProduto)
+        if (!checkProduto1) {
+            return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}` })
+        }
+
+        // (2) Verificar se o produto está na lista de desejos
+        try {
+            const listaDesejosService = new ListaDesejosService()
+            let produto = await listaDesejosService.verificarSeListaJaContemProduto(idListaDesejos, idProduto)
+            if (produto.length == 0) {
+                return res.status(400).json({ message: `A lista não contém o produto informado. Nenhuma alteração foi realizada.` })
+            }
+        } catch (err) {
+            return res.status(500).json({ message: err.message })
+        }
+
+        // TODO: (3) Verificar se a lista só possui um item (não podemos deixar uma lista de desejos vazia)
+
+
+        // Se tudo for validado, remover o produto da lista + remover lista do produto
+        // Retornar a lista atualizada.
+
+    }
 
     async adicionarProduto(req, res) {
 
