@@ -110,7 +110,6 @@ router.post('/', (req, res) => {
  * 
  */
 router.get('/', (req, res, next) => {
-    console.log(req.query)
     listaDesejosController.buscarPaginadoListaDesejos(req.query)
     .then(listaDesejos => res.status(200).send(listaDesejos))
     .catch((err) => {

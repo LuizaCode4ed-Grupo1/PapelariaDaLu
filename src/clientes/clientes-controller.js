@@ -3,13 +3,11 @@ import ClienteService from './clientes-service'
 class ClienteController {
 
     cadastrarCliente(cliente) {
-        console.log('Cadastrando um novo cliente....', cliente)
         const clienteService = new ClienteService()
         return clienteService.cadastrarCliente(cliente)
     }
 
     listarClientes() {
-        console.log('Exibindo clientes....')
         const clienteService = new ClienteService()
         return clienteService.listarClientes()  
     }
@@ -30,8 +28,7 @@ class ClienteController {
     }
 
     buscarPaginadoCliente(params_query) {
-        console.log('Entrou na busca paginada')
-        
+       
         let pagina = params_query.pagina
         let limite = params_query.limite
 
@@ -42,12 +39,18 @@ class ClienteController {
             limite = 5
         }
 
+        if (params_query.name) {
+            params_query.name = new RegExp(params_query.name, 'i')
+        }
+        if (params_query.email) {
+            params_query.email = new RegExp(params_query.email, 'i')
+        }
+
         const clienteService = new ClienteService()
         return clienteService.buscarPaginadoCliente(params_query, pagina, limite)
     }
 
     atualizarCliente(idCliente, cliente) {
-        console.log('Atualizando o cliente com o id: ', idCliente)
         const clienteService = new ClienteService()
         return clienteService.atualizarCliente(idCliente, cliente)
     }
@@ -85,7 +88,7 @@ class ClienteController {
             }
             return true
         } catch (err) {
-            console.log(err.message)
+            console.error(err.message)
             return false
         }
     }
@@ -95,7 +98,7 @@ class ClienteController {
 
         let cliente = await clienteService.listarClientes(idCliente)
         .catch(err => { 
-            console.log(err)
+            console.error(err)
             return false
         })
 

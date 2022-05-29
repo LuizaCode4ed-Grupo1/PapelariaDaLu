@@ -29,13 +29,11 @@ class listaDesejosController {
     }
 
     listarListaDesejos(){
-        console.log('Exibindo lista de desejos....')
         const listaDesejosService = new ListaDesejosService ()
         return listaDesejosService.listarListaDesejos()  
     }
 
     listarListaDesejosPorId(_id) {
-        console.log('Exibindo Lista de Desejos por Id: ', _id)
         const listaDesejosService = new ListaDesejosService()
         return listaDesejosService.listarListaDesejosPorId(_id)
     }
@@ -46,7 +44,6 @@ class listaDesejosController {
     }
 
     buscarPaginadoListaDesejos(params_query) {
-        console.log('Entrou na busca paginada')
         let pagina = params_query.pagina
         let limite = params_query.limite
 
@@ -61,7 +58,6 @@ class listaDesejosController {
     }
 
     atualizarListaDesejos(idListaDesejos, listaDesejos) {
-        console.log('Atualizando lista de desejos: ', idListaDesejos)
         const listaDesejosService = new ListaDesejosService()
         return listaDesejosService.atualizarListaDesejos(idListaDesejos, listaDesejos)
     }
@@ -177,7 +173,7 @@ class listaDesejosController {
                 return true
             }
         } catch(err) {
-            console.log(err.message)
+            console.error(err.message)
             return false
         }
     }
@@ -197,7 +193,7 @@ class listaDesejosController {
                 return true
             }
         } catch(err) {
-            console.log(err.message)
+            console.error(err.message)
             return false
         }
     }
@@ -219,7 +215,7 @@ class listaDesejosController {
                 return false
             }
         } catch(err) {
-            console.log(err.message)
+            console.error(err.message)
             return false
         }
     }

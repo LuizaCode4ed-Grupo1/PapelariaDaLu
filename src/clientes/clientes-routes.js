@@ -126,7 +126,6 @@ router.post('/', verificarSeClienteTentouCadastrarComWishlist, (req, res, next) 
  *         description: Erro no servidor  
  */
 router.get('/', (req, res, next) => {
-    console.log(req.query)
     clienteController.buscarPaginadoCliente(req.query)
     .then(clientes => res.status(200).send(clientes))
     .catch((err) => {

@@ -39,7 +39,7 @@ class ProdutoController {
         //TODO: Remove Produto pelo id
         const produtoService = new ProdutoService()
         let resultado = produtoService.removerProduto(idProduto)
-        return res.status(200).json({ message: `O Produto com codigo ${idProduto} foi deletado com suceso` })
+        return res.status(200).json({ message: `O Produto com codigo ${idProduto} foi deletado com sucesso!` })
     }
 
     async verificarSeProdutoEstaNaListaDesejos(idProduto) {
@@ -47,13 +47,11 @@ class ProdutoController {
 
         let produto = await produtoService.buscarProdutoPorId(idProduto)
         .catch(err => { 
-            console.log(err)
+            console.error(err)
             return false
         })
 
-        //console.log(produto[0].wishlists)
         let arrayWishlists = produto[0].wishlists
-        //console.log(arrayWishlists.length)
 
         if(arrayWishlists.length === 0) {
             return false

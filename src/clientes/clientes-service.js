@@ -10,7 +10,6 @@ import Cliente from './clientes-model'
 class ClienteService {
 
     cadastrarCliente(cliente) {
-        console.log('Inserindo novo cliente no mongodb...')
         const novoCliente = new Cliente(cliente)
         return novoCliente.save()
     }
@@ -34,10 +33,7 @@ class ClienteService {
         if (idCliente !== undefined && idCliente !== null) {
             params._id = idCliente
         }
-        //const cliente = await Cliente.findById(id)
         const cliente = await Cliente.findById(id).populate({path:'wishlists', select: '_id'})
-        // const wishlist = cliente.wishlists
-        //console.log(cliente)
         return cliente
     }
 
@@ -50,7 +46,6 @@ class ClienteService {
     }
     
     buscarPaginadoCliente(query, pagina, limite) {
-        console.log('Entrou no service')
         const resultado = Cliente.paginate(query, { page: pagina, limit: limite })
         return resultado
     }
