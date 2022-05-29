@@ -6,6 +6,7 @@ mongoose.connect(config.connectionString)
 import ListaDesejos from './listasDesejos-model'
 import Cliente from '../clientes/clientes-model'
 import Produto from '../produtos/produtos-model'
+import res from 'express/lib/response'
 
 class ListaDesejosService {
 
@@ -27,27 +28,22 @@ class ListaDesejosService {
         return ListaDesejos.find()
     }
 
-    listarListaDesejosPorId(_id) {
+    async listarListaDesejosPorId(_id) {
         const params = {}
         if (_id !== undefined && _id !== null) {
             params._id = _id
         }
-        return ListaDesejos.find(params)
+        return await ListaDesejos.find(params)
     }
 
-    async listarIdClientesListaDesejosEProdutos(idCliente) {
-            const params = {}
-            const id = idCliente
-            if (idCliente !== undefined && idCliente !== null) {
-                params._id = idCliente
-            }
-            const produto = await ListaDesejos.find().populate({path:'idProduto', select: '_id'})
-            return produto
-        }
+    async listarIdClientesListaDesejosEProdutos() {
+        const produto = await ListaDesejos.find().populate({path:'idProduto', select: '_id'})
+        return produto
+    }
 
     buscarPaginadoListaDesejos(query, pagina, limite) {
         console.log('Entrou no service')
-        var resultado = ListaDesejos.paginate(query, { page: pagina, limit: limite })
+        const resultado = ListaDesejos.paginate(query, { page: pagina, limit: limite })
         return resultado
     }
 
@@ -59,6 +55,17 @@ class ListaDesejosService {
         return ListaDesejos.findOneAndDelete({_id: idListaDesejos})
     }
 
+    async adicionarProduto(idListaDesejos, idProduto) {
+        await ListaDesejos.findOneAndUpdate({ _id: idListaDesejos }, { $push: { idProduto: idProduto }})
+        return ListaDesejos.findById(idListaDesejos) 
+    }
+
+    async verificarSeListaJaContemProduto(idListaDesejos, idProduto) {
+        return await ListaDesejos.find({
+            _id: idListaDesejos,
+            idProduto: idProduto
+        })
+    }
 
 }
 

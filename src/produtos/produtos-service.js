@@ -1,3 +1,4 @@
+import { ObjectId } from 'mongodb'
 import mongoose from 'mongoose'
 import config from '../config'
 
@@ -18,18 +19,19 @@ class ProdutoService {
         if (idProduto !== undefined && idProduto !== null) {
             params._id = idProduto
         }
-        const produto = await Produto.findById(id)
-        const wishlist = produto.wishlists
-        console.log(produto)
-        return wishlist
+        //const produto = await Produto.findById(id)
+        const produto = await Produto.findById(id).populate({path:'wishlists', select: '_id'})
+        // const wishlist = produto.wishlists
+        // console.log(produto)
+        return produto
     }
 
-    atualizarProduto(codigoProduto, produto) {
-        return Produto.findOneAndUpdate({_code: codigoProduto}, produto)
+    atualizarProduto(_id, produto) {
+        return Produto.findOneAndUpdate({_id}, produto)
     }
     
     removerProduto(codigoProduto) {
-        return Produto.findOneAndDelete({_code: codigoProduto})
+        return Produto.findOneAndDelete({_id: codigoProduto})
     }
 
     
@@ -62,6 +64,17 @@ class ProdutoService {
 
     buscarProdutoPorCodigo(_id) {
         return Produto.findOne({_id})
+    }
+
+    async buscarProdutoPorId(idProduto) {
+        if (!mongoose.Types.ObjectId.isValid(idProduto)) 
+            return 'invalidIdProduto'
+        try {
+            const _id = new ObjectId(idProduto)
+            return await Produto.find({_id})
+        } catch (err) {
+            return {'error': 'error on produtos-service'}
+        }
     }
 }
 

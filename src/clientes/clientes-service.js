@@ -32,10 +32,11 @@ class ClienteService {
         if (idCliente !== undefined && idCliente !== null) {
             params._id = idCliente
         }
-        const cliente = await Cliente.findById(id)
-        const wishlist = cliente.wishlists
-        console.log(cliente)
-        return wishlist
+        //const cliente = await Cliente.findById(id)
+        const cliente = await Cliente.findById(id).populate({path:'wishlists', select: '_id'})
+        // const wishlist = cliente.wishlists
+        //console.log(cliente)
+        return cliente
     }
 
     listarClientesEmail(emailCliente) {
@@ -48,26 +49,8 @@ class ClienteService {
     
     buscarPaginadoCliente(query, pagina, limite) {
         console.log('Entrou no service')
-
-         if (pagina === undefined) {
-            pagina = 1
-        } 
-         if (limite === undefined) {
-             limite = 5
-        }
-         if (query.name) {
-            query.name = new RegExp(query.name, 'i')
-        }
-        
-        var resultado = Cliente.paginate(query, { page: pagina, limit: limite }, this.callbackBuscaCliente)
-        
+        const resultado = Cliente.paginate(query, { page: pagina, limit: limite })
         return resultado
-    }
-
-    callbackBuscaCliente(erro, resultado) {
-        // console.log('Executando callback')
-        // console.log(erro)
-        // console.log(resultado)
     }
 
     atualizarCliente(idCliente, cliente) {
