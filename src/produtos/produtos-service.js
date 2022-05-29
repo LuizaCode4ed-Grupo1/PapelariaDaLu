@@ -25,12 +25,12 @@ class ProdutoService {
         return wishlist
     }
 
-    atualizarProduto(codigoProduto, produto) {
-        return Produto.findOneAndUpdate({_code: codigoProduto}, produto)
+    atualizarProduto(_id, produto) {
+        return Produto.findOneAndUpdate({_id}, produto)
     }
     
     removerProduto(codigoProduto) {
-        return Produto.findOneAndDelete({_code: codigoProduto})
+        return Produto.findOneAndDelete({_id: codigoProduto})
     }
 
     buscarPaginadoProduto(query, pagina, limite) {
@@ -51,8 +51,8 @@ class ProdutoService {
         return Produto.paginate(query, { page: pagina, limit: limite })
     }
 
-    buscarProdutoPorCodigo(_code) {
-        return Produto.findOne({_code})
+    buscarProdutoPorCodigo(_id) {
+        return Produto.findOne({_id})
     }
 
     async buscarProdutoPorId(idProduto) {
