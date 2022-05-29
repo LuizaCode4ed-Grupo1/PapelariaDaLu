@@ -72,6 +72,7 @@ class ClienteController {
         return res.status(200).json({ message: `Cliente com id ${idCliente} deletado com sucesso.` })
     }    
 
+
     async verificarSeClientePossuiListaDesejos(idCliente) {
         const clienteService = new ClienteService()
         let cliente = await clienteService.listarClientesId(idCliente)
@@ -85,6 +86,6 @@ class ClienteController {
         console.log(cliente.wishlists)
         return false
     }
-}
+
 
 export default ClienteController

@@ -5,6 +5,32 @@ const router = express.Router()
 import ListaDesejos from './listasDesejos-controller'
 const listaDesejosController = new ListaDesejos()
 
+/**
+ * @swagger
+ * components:
+ *  schemas:
+ *      ListasDesejos:
+ *          type: object
+ *          required:
+ *              - nameList
+ *              - idCliente
+ *              - idProduto
+ *          properties:
+ *              _id:
+ *                  type: ObjectId
+ *                  description: ID gerado automaticamente pelo MongoDB
+ *              idCliente:
+ *                  type: ObjectId
+ *                  description: O id do usuário
+ *              idProduto:
+ *                  type: array
+ *                  description: Array que armazena os ids das listas de desejos do usuário
+ *              createdAt: 
+ *                  type: Date
+ *                  description: O timestamp de quando a lista foi criada
+ */
+
+
 // Cadastrar uma nova lista de desejos
 router.post('/', (req, res) => {
     listaDesejosController.cadastrarListaDesejos(req, res)

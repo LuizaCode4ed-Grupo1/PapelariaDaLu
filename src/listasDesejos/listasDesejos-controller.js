@@ -161,6 +161,10 @@ class listaDesejosController {
             return false
         }
     }
+
+    async verificarSeClientePossuiListaDesejos(idCliente) {
+        
+    }
 }
 
 
