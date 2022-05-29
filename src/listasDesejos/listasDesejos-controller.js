@@ -1,12 +1,11 @@
 import ListaDesejosService from './listasDesejos-service'
 import ProdutoService from '../produtos/produtos-service'
+import { ObjectId } from 'mongodb'
 
 class listaDesejosController {
 
     async cadastrarListaDesejos(req, res) {
-        // console.log('Cadastrando uma nova lista de desejos....', idCliente, idProduto, nameList)
-        // const listaDesejosService = new ListaDesejosService()
-        // return listaDesejosService.cadastrarListaDesejos(idCliente, idProduto, nameList)
+
         const idCliente = req.body.idCliente
         const idProduto = req.body.idProduto
         const nameList = req.body.nameList
@@ -17,8 +16,12 @@ class listaDesejosController {
 
         // TODO : Verificar se cliente existe
 
-        // TODO : Verificar se produto existe
-        
+        // Verificar se produto existe
+        let checkProduto = await this.verificarSeProdutoExiste(idProduto)
+        if (!checkProduto) {
+            return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}` })
+        }
+
         const listaDesejosService = new ListaDesejosService()
         const resultado = await listaDesejosService.cadastrarListaDesejos(idCliente, idProduto, nameList)
         return res.status(201).send(resultado)
@@ -74,8 +77,7 @@ class listaDesejosController {
         const idListaDesejos = req.params.idListaDesejos
         const idProduto = req.body.idProduto
         const listaDesejosService = new ListaDesejosService()
-        const produtoService = new ProdutoService()
-
+        
         // Validação de idListaDesejos - Verificar se idListaDesejos existe
         try {
             // Essa promise retorna um array de resultados. Se array retornar vazio é pq não encontrou nenhuma lista com os params especificados
@@ -88,15 +90,20 @@ class listaDesejosController {
         }
 
         // Validação de idProduto - Verificar se idProduto existe
-        try {
-            let produto = await produtoService.buscarProdutoPorId(idProduto)
-            // Por algum motivo essa validação não funcionou da mesma forma que a de isListaDesejos, mas está funcionando assim
-            if (produto === 'invalidIdProduto' || produto.length === 0) {
-                return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}` })
-            }
-        } catch (err) {
-            return res.status(500).json({ message: err.message })
+        let checkProduto = await this.verificarSeProdutoExiste(idProduto)
+        if (!checkProduto) {
+            return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}` })
         }
+
+        // try {
+        //     let produto = await produtoService.buscarProdutoPorId(idProduto)
+        //     // Por algum motivo essa validação não funcionou da mesma forma que a de isListaDesejos, mas está funcionando assim
+        //     if (produto === 'invalidIdProduto' || produto.length === 0) {
+        //         return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}` })
+        //     }
+        // } catch (err) {
+        //     return res.status(500).json({ message: err.message })
+        // }
 
         // TODO: Implementar validação de idProduto - Verificar se idProduto já está na lista informada
         try {
@@ -110,6 +117,26 @@ class listaDesejosController {
 
         // Depois de tudo validado:
         return listaDesejosService.adicionarProduto(idListaDesejos, idProduto)
+    }
+
+    /**
+     * Verifica se um idProduto existe atualmente no banco de dados, retornando true caso exista e false caso contrário.
+     * @param {ObjectId} idProduto 
+     * @returns {Promise<Boolean>}
+     */
+    async verificarSeProdutoExiste(idProduto) {
+        const produtoService = new ProdutoService()
+        try {
+            let produto = await produtoService.buscarProdutoPorId(idProduto)
+            if (produto === 'invalidIdProduto' || produto.length === 0) {
+                return false
+            } else {
+                return true
+            }
+        } catch(err) {
+            console.log(err.message)
+            return false
+        }
     }
 }
 
