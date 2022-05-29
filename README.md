@@ -50,8 +50,8 @@ db.createCollection('produtos');
 
 Para conectar em nosso banco MongoDB através do MongoDB Atlas utilize a conexão:
 ```
-mongodb+srv://beatrizmakowski:995679@luizacode.osgkn.mongodb.net/papelaria-da-lu
-
+mongodb+srv://beatrizmakowski:995679@luizacode.osgkn.mongodb.net/papelaria-da-lu .
+```
 
 ## 🚩 API Endpoints
 
