@@ -41,16 +41,8 @@ class ListaDesejosService {
             if (idCliente !== undefined && idCliente !== null) {
                 params._id = idCliente
             }
-            const cliente = await Cliente.findById(id)
-            //console.log(cliente)
-            // const res = await Cliente.aggregate([
-            //     { $match: {id: cliente }},
-            //     // { $match: {id: cliente.wishlists}},
-            //     // { $match: {id: cliente.idProduto}},
-            //   ]);
-            const wishlist = cliente.wishlists
-            console.log(wishlist)
-            return wishlist
+            const produto = await ListaDesejos.find().populate({path:'idProduto', select: '_id'})
+            return produto
         }
 
     buscarPaginadoListaDesejos(query, pagina, limite) {
