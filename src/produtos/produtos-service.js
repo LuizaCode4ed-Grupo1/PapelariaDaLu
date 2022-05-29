@@ -24,7 +24,7 @@ class ProdutoService {
     }
 
     atualizarProduto(_id, produto) {
-        return Produto.findOneAndUpdate({_id}, produto)
+        return Produto.findOneAndUpdate({_id}, produto, { returnOriginal : false })
     }
     
     removerProduto(codigoProduto) {

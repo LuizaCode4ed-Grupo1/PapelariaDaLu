@@ -51,7 +51,7 @@ class ClienteService {
     }
 
     atualizarCliente(idCliente, cliente) {
-        return Cliente.findOneAndUpdate({_id: idCliente}, cliente)
+        return Cliente.findOneAndUpdate({_id: idCliente}, cliente, { returnOriginal : false })
     }
 
     removerCliente(idCliente) {

@@ -49,7 +49,7 @@ class ListaDesejosService {
     }
 
     atualizarListaDesejos(idListaDesejos, listaDesejos) {
-        return ListaDesejos.findOneAndUpdate({_id: idListaDesejos},listaDesejos)
+        return ListaDesejos.findOneAndUpdate({_id: idListaDesejos}, listaDesejos, { returnOriginal : false })
     }
 
     removerListaDesejo(idListaDesejos) {
