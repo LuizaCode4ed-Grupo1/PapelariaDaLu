@@ -1,4 +1,6 @@
 import ClienteService from './clientes-service'
+import ListaDesejos from '../listasDesejos/listasDesejos-controller'
+const listaDesejosController = new ListaDesejos()
 
 class ClienteController {
 
@@ -52,12 +54,38 @@ class ClienteController {
         return clienteService.atualizarCliente(idCliente, cliente)
     }
 
-    removerCliente(idCliente) {
-        console.log('Removendo o cliente com o id: ', idCliente)
+    async removerCliente (req, res) {
+        let idCliente = req.params._id
+        if(!idCliente) {
+            res.status(400).json({ message: `O id do cliente deve ser informado na URL` })
+        }
+
+        // TODO : Verificar se cliente existe        
+
+        // TODO : Verificar se cliente possui lista de desejos
+        let checarLista = await this.verificarSeClientePossuiListaDesejos(idCliente)
+        if (!checarLista) {
+            return res.status(400).json({ message: `O cliente possui lista de desejos e não pode ser removido` })
+        }
         const clienteService = new ClienteService()
-        return clienteService.removerCliente(idCliente)
+        const resultado = await clienteService.removerCliente(idCliente)
+        return res.status(200).json({ message: `Cliente com id ${idCliente} deletado com sucesso.` })
     }    
-    
-}
+
+
+    async verificarSeClientePossuiListaDesejos(idCliente) {
+        const clienteService = new ClienteService()
+        let cliente = await clienteService.listarClientesId(idCliente)
+        
+        .catch(err => { 
+            console.log(err)
+            return false
+        })
+        console.log(cliente)
+
+        console.log(cliente.wishlists)
+        return false
+    }
+
 
 export default ClienteController

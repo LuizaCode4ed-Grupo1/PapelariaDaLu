@@ -58,7 +58,8 @@ class ClienteService {
     }
 
     removerCliente(idCliente) {
-        return Cliente.findOneAndDelete({_id: idCliente})
+        const removaCliente = Cliente.findOneAndDelete({_id: idCliente})
+        return removaCliente
     }
 }
 
