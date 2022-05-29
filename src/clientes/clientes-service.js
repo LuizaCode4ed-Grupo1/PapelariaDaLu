@@ -32,10 +32,11 @@ class ClienteService {
         if (idCliente !== undefined && idCliente !== null) {
             params._id = idCliente
         }
-        const cliente = await Cliente.findById(id)
-        const wishlist = cliente.wishlists
-        console.log(cliente)
-        return wishlist
+        //const cliente = await Cliente.findById(id)
+        const cliente = await Cliente.findById(id).populate({path:'wishlists', select: '_id'})
+        // const wishlist = cliente.wishlists
+        //console.log(cliente)
+        return cliente
     }
 
     listarClientesEmail(emailCliente) {

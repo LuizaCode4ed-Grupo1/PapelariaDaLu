@@ -35,15 +35,9 @@ class ListaDesejosService {
         return await ListaDesejos.find(params)
     }
 
-    async listarIdClientesListaDesejosEProdutos(idCliente) {
-        const params = {}
-        const id = idCliente
-        if (idCliente !== undefined && idCliente !== null) {
-            params._id = idCliente
-        }
-        const cliente = await Cliente.findById(id)
-        const wishlist = cliente.wishlists
-        return wishlist
+    async listarIdClientesListaDesejosEProdutos() {
+        const produto = await ListaDesejos.find().populate({path:'idProduto', select: '_id'})
+        return produto
     }
 
     buscarPaginadoListaDesejos(query, pagina, limite) {
