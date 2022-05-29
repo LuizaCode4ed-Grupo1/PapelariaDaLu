@@ -90,7 +90,7 @@ const clienteController = new ClienteController()
  *                   uniqueItems: true
  *     responses:
  *       200:
- *         description: Cliente cadastrado com sucesso.
+ *         description: Cliente cadastrado com sucesso
  *       400:
  *         description: Bad Request
  */
@@ -121,9 +121,9 @@ router.post('/', verificarSeClienteTentouCadastrarComWishlist, (req, res, next) 
  *       type: integer
  *     responses:
  *       200:
- *         description: OK!
+ *         description: OK
  *       500:
- *         description: Erro no servidor.  
+ *         description: Erro no servidor  
  */
 router.get('/', (req, res, next) => {
     console.log(req.query)
@@ -133,7 +133,6 @@ router.get('/', (req, res, next) => {
         res.status(500).json({ message: err.message })
     })
 })
-
 
 /**
  * @swagger
@@ -163,7 +162,6 @@ router.get('/id/:id', (req, res, next) => {
     })
 })
 
-// Buscar pelo idCliente e retornar listas de desejos
 /**
  * @swagger
  * /clientes/listasDesejos/{idCliente}:
@@ -202,7 +200,7 @@ router.get('/listasDesejos/:id', (req, res, next) => {
  *     description: ""
  *     responses:
  *       200:
- *         description: Sucesso ao encontrar cliente!
+ *         description: Sucesso ao encontrar cliente
  */
 router.get('/email/:email', (req, res, next) => {
     clienteController.listarClientesEmail(req.params.email)
@@ -226,9 +224,9 @@ router.get('/email/:email', (req, res, next) => {
  *       type: string
  *     responses:
  *       200:
- *         description: OK!
+ *         description: OK
  *       500: 
- *         desciption: Erro no servidor.
+ *         desciption: Erro no servidor
  */
 router.patch('/:_id', (req, res, next) => {
     clienteController.atualizarCliente(req.params._id, req.body)
@@ -248,7 +246,7 @@ router.patch('/:_id', (req, res, next) => {
  *     description: ""
  *     responses:
  *       204:
- *         description: Cliente deletado com sucesso.
+ *         description: Cliente deletado com sucesso
  */
 router.delete('/:_id', (req, res) => {
     clienteController.removerCliente(req, res)

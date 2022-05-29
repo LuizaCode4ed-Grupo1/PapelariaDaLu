@@ -31,9 +31,7 @@ const listaDesejosController = new ListaDesejos()
  */
 
 
-// Cadastrar uma nova lista de desejos
-// Status 201: Created
-// Status 500: Internal Server Error
+
 /**
  *  @swagger
  * /listasDesejos:
@@ -76,9 +74,9 @@ const listaDesejosController = new ListaDesejos()
  *              
  *     responses:
  *       201:
- *         description: Lista de desejos cadastrada com sucesso.
+ *         description: Lista de desejos cadastrada com sucesso
  *       500:
- *         description: Erro no servidor.
+ *         description: Erro no servidor
  */
 router.post('/', (req, res) => {
     listaDesejosController.cadastrarListaDesejos(req, res)
@@ -87,9 +85,6 @@ router.post('/', (req, res) => {
     })
 })
 
-// Listar lista de desejos e busca paginada
-// Status 200: OK
-// Status 500 : Server Error
 /**
  * @swagger
  * /listasDesejos:
@@ -109,9 +104,9 @@ router.post('/', (req, res) => {
  *       type: integer
  *     responses:
  *       200:
- *         description: Operação realizada com sucesso.
+ *         description: Operação realizada com sucesso
  *       500:
- *         description: Erro no servidor.
+ *         description: Erro no servidor
  * 
  */
 router.get('/', (req, res, next) => {
@@ -123,7 +118,6 @@ router.get('/', (req, res, next) => {
     })
 })
 
-// Buscar uma lista de desejos pelo id
 /**
  * @swagger
  * /listasDesejos/id/{idListasDesejos}:
@@ -150,8 +144,6 @@ router.get('/id/:_id', (req, res, next) => {
     .catch(next)
 })
 
-
-// Buscar pelo IdCliente e retornar listas de desejos e produtos
 /**
  * @swagger
  * /listasDesejos/listasDesejos/{idCliente}:
@@ -180,9 +172,6 @@ router.get('/listasDesejos/:id', (req, res, next) => {
     })
 })
 
-// Atualizar lista de desejos a partir do seu código
-// Status 200: OK
-// Status 400: Bad Request
 /**
  * @swagger
  * /listasDesejos:
@@ -197,9 +186,9 @@ router.get('/listasDesejos/:id', (req, res, next) => {
  *       description: Objeto que contém os pares de chave-valor a serem atualizados. O código da lista de desejos não pode ser alterado!
  *     responses:
  *       200:
- *         description: Operação realizada com sucesso.
+ *         description: Operação realizada com sucesso
  *       400:
- *         description: Bad Request || Não é permitido alterar o código do produto.
+ *         description: Bad Request || Não é permitido alterar o código do produto
  */
 router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
     listaDesejosController.atualizarListaDesejos(req.params._id, req.body)
@@ -209,10 +198,6 @@ router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
     })
 })
 
-// Cadastrar um novo produto na lista de desejos
-// Status 201: Created
-// Status 400: Bad Request
-// Status 500: Internal Server Error
 /**
  *  @swagger
  * /listasDesejos/{idListasDesejos}:
@@ -239,11 +224,11 @@ router.patch('/:_id', verificarSeClienteTentouAlterarId, (req, res, next) => {
  *              
  *     responses:
  *       201:
- *         description: Lista de desejos cadastrada com sucesso.
+ *         description: Lista de desejos cadastrada com sucesso
  *       400:
- *         description: Bad Request.
+ *         description: Bad Request
  *       500:
- *         description: Erro no servidor.
+ *         description: Erro no servidor
  */
 router.post('/:idListaDesejos', (req, res) => {
     listaDesejosController.adicionarProduto(req, res)
@@ -278,9 +263,9 @@ router.post('/:idListaDesejos', (req, res) => {
  *              
  *     responses:
  *       204:
- *         description: Cliente deletado com sucesso.
+ *         description: Cliente deletado com sucesso
  *       500:
- *         description: Erro no servidor.
+ *         description: Erro no servidor
  */
 router.delete('/:_id', (req, res) => {
     // Se o usuário informar o código de um produto no corpo da requisição, entendemos que ele quer deletar esse produto da lista de desejos

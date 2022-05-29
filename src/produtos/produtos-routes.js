@@ -48,9 +48,7 @@ const produtoController = new ProdutoController()
  *                  
  */
 
-// Cadastrar um novo produto
-// Status 201: Created
-// Status 400: Bad Request
+
 /**
  *  @swagger
  * /produtos:
@@ -102,7 +100,7 @@ const produtoController = new ProdutoController()
  *                  uniqueItems: true
  *     responses:
  *       201:
- *         description: Produto cadastrado com sucesso.
+ *         description: Produto cadastrado com sucesso
  *       400:
  *         description: Bad Request
  */
@@ -114,9 +112,7 @@ router.post('/', (req, res) => {
     })
 })
 
-// Atualizar um produto a partir do seu código
-// Status 200: OK
-// Status 400: Bad Request
+
 /**
  * @swagger
  * /produtos:
@@ -133,12 +129,11 @@ router.post('/', (req, res) => {
  *       200:
  *         description: Operação realizada com sucesso.
  *       404:
- *         description: Não foi encontrado nenhum produto com o código especificado.
+ *         description: Não foi encontrado nenhum produto com o código especificado
  *       400:
  *         description: Bad Request || Não é permitido alterar o código do produto
  */
-
- router.patch('/:_code', verificarSeProdutoExiste, verificarSeClienteTentouAlterarCodigo, (req, res) => {
+router.patch('/:_code', verificarSeProdutoExiste, verificarSeClienteTentouAlterarCodigo, (req, res) => {
     produtoController.atualizarProduto(req.params._code, req.body)
     .then(produto => res.status(200).send(produto))
     .catch(err => {
@@ -146,9 +141,6 @@ router.post('/', (req, res) => {
     })
 })
 
-// Listar todos os produtos
-// Status 200: OK
-// Status 500 : Server Error
 /**
  * @swagger
  * /produtos:
@@ -168,9 +160,9 @@ router.post('/', (req, res) => {
  *       type: integer
  *     responses:
  *       200:
- *         description: Operação relizada com sucesso.
+ *         description: Operação relizada com sucesso
  *       500:
- *         description: Erro no servidor.   
+ *         description: Erro no servidor   
  * 
  */
 router.get('/', (req, res) => {
@@ -189,7 +181,6 @@ router.get('/', (req, res) => {
     })
 })
 
-// Buscar pelo Produto e retornar listas de desejos
 /**
  * @swagger
  * /produtos/listasDesejos/{idProduto}:
@@ -206,9 +197,9 @@ router.get('/', (req, res) => {
  *       type: string
  *     responses:
  *       200:
- *         description: Operação relizada com sucesso.
+ *         description: Operação relizada com sucesso
  *       500:
- *         description: Erro no servidor.   
+ *         description: Erro no servidor   
  */
 router.get('/listasDesejos/:id', (req, res, next) => {
     produtoController.listarProdutosEListaDesejos(req.params.id)
@@ -226,10 +217,6 @@ router.get('/id/:id', (req, res) => {
     })
 })
 
-
-// Remover um produto informando seu código
-// Status 200: OK
-// Status 400: Bad Request
 /**
  * @swagger
  * /produtos:
@@ -245,9 +232,9 @@ router.get('/id/:id', (req, res) => {
  *       type: string
  *     responses:
  *       204:
- *         description: Produto deletado com sucesso.
+ *         description: Produto deletado com sucesso
  *       404:
- *         description: Não foi encontrado nenhum produto com o código especificado.
+ *         description: Não foi encontrado nenhum produto com o código especificado
  *       400:
  *         description: Bad Request
  * 
