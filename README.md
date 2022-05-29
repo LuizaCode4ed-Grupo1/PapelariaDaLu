@@ -42,12 +42,12 @@ const database = 'papelaria-da-lu';
 const collection = 'clientes';
 use(database);
 db.createCollection(collection);
-
+```
 Comando exemplo para a criação das demais coleções do banco de dados
 ```
 use('papelaria-da-lu');
 db.createCollection('produtos');
-
+```
 Para conectar em nosso banco MongoDB através do MongoDB Atlas utilize a conexão:
 ```
 mongodb+srv://beatrizmakowski:995679@luizacode.osgkn.mongodb.net/papelaria-da-lu .
@@ -97,14 +97,14 @@ http://localhost:3000/docs/
                  <img src="https://avatars.githubusercontent.com/u/103972305?v=4" width=100 />
                 <p>Mariana<br>Dorigan</p>
             </a>
-        <p>:🤖:</p>
+        <p>🤖</p>
         </td>
         <td>
             <a href="https://github.com/priscillararimmy">
                  <img src="https://avatars.githubusercontent.com/u/89642572?v=4" width=100 />
                 <p>Priscilla<br>Rarimmy</p>
             </a>
-        <p>:👾:</p>
+        <p>👾</p>
         </td>
     </tr> 
 </table>
