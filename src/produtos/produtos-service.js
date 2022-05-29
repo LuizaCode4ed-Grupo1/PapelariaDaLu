@@ -19,10 +19,11 @@ class ProdutoService {
         if (idProduto !== undefined && idProduto !== null) {
             params._id = idProduto
         }
-        const produto = await Produto.findById(id)
-        const wishlist = produto.wishlists
-        console.log(produto)
-        return wishlist
+        //const produto = await Produto.findById(id)
+        const produto = await Produto.findById(id).populate({path:'wishlists', select: '_id'})
+        // const wishlist = produto.wishlists
+        // console.log(produto)
+        return produto
     }
 
     atualizarProduto(_id, produto) {

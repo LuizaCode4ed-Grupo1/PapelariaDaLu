@@ -35,12 +35,7 @@ class ListaDesejosService {
         return await ListaDesejos.find(params)
     }
 
-    async listarIdClientesListaDesejosEProdutos(idCliente) {
-        const params = {}
-        const id = idCliente
-        if (idCliente !== undefined && idCliente !== null) {
-            params._id = idCliente
-        }
+    async listarIdClientesListaDesejosEProdutos() {
         const produto = await ListaDesejos.find().populate({path:'idProduto', select: '_id'})
         return produto
     }
