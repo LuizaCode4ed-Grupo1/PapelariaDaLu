@@ -87,16 +87,22 @@ class listaDesejosController {
     async removerProdutoDaListaDesejo(req, res) {
         const idListaDesejos = req.params._id
         const idProduto = req.body.idProduto
+        const listaDesejosService = new ListaDesejosService()
+
+        // (0) Validação de idListaDesejos - Verificar se idListaDesejos existe
+        let checkLista = await this.verificarSeListaExiste(idListaDesejos)
+        if (!checkLista) {
+            return res.status(400).json({ message: `O idListaDesejos informado não é válido: ${idListaDesejos}. Nenhuma alteração foi realizada.` })
+        }
 
         // (1) Verificar se produto existe
         let checkProduto1 = await this.verificarSeProdutoExiste(idProduto)
         if (!checkProduto1) {
-            return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}` })
+            return res.status(400).json({ message: `O idProduto informado não é válido: ${idProduto}. Nenhuma alteração foi realizada.` })
         }
 
         // (2) Verificar se o produto está na lista de desejos
         try {
-            const listaDesejosService = new ListaDesejosService()
             let produto = await listaDesejosService.verificarSeListaJaContemProduto(idListaDesejos, idProduto)
             if (produto.length == 0) {
                 return res.status(400).json({ message: `A lista não contém o produto informado. Nenhuma alteração foi realizada.` })
@@ -113,8 +119,7 @@ class listaDesejosController {
 
         // Se tudo for validado, remover o produto da lista + remover lista do produto
         // Retornar a lista atualizada.
-        //let resultado = await removerProdutoDeUmaListaDesejos(idListaDesejos, idProduto)
-        let resultado = 'Validações check'
+        let resultado = await listaDesejosService.removerProdutoDeUmaListaDesejos(idListaDesejos, idProduto)
         return res.status(200).send(resultado)
 
     }
