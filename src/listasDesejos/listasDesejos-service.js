@@ -20,6 +20,9 @@ class ListaDesejosService {
         // Inserindo o id desta lista de desejos dentro do documento do cliente
         let cliente = await Cliente.findOneAndUpdate({ _id: idCliente }, { $push: {wishlists: novaListaDesejos._id}})
 
+        // Inserindo o id desta lista de desejos dentro do documento de produto
+        let produto = await Produto.findOneAndUpdate({ _id: idProduto }, { $push: {wishlists: novaListaDesejos._id}})
+
         return novaListaDesejos
     }
 
