@@ -218,6 +218,15 @@ router.get('/listasDesejos/:id', (req, res, next) => {
     })
 })
 
+router.get('/id/:id', (req, res) => {
+    produtoController.buscarProdutoPorId(req.params.id)
+    .then(produto => res.status(200).send(produto))
+    .catch(err => {
+        res.status(500).json({ message: err.message })
+    })
+})
+
+
 // Remover um produto informando seu código
 // Status 200: OK
 // Status 400: Bad Request

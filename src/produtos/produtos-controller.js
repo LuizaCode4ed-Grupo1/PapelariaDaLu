@@ -17,20 +17,52 @@ class ProdutoController {
         return produtoService.atualizarProduto(codigoProduto, produto)
     }
 
-    removerProduto(codigoProduto) {
-        const produtoService = new ProdutoService()
-        return produtoService.removerProduto(codigoProduto)
-    }
-
     buscarPaginadoProduto(query) {
         const produtoService = new ProdutoService()
         return produtoService.buscarPaginadoProduto(query)
     }
 
-    buscarProdutoPorCodigo(codigo) {
+    buscarProdutoPorId(idProduto) {
         const produtoService = new ProdutoService()
-        return produtoService.buscarProdutoPorCodigo(codigo)
+        return produtoService.buscarProdutoPorId(idProduto)
+    }
+
+   async removerProduto(req, res) {
+        let idProduto = req.params._id
+
+        // TODO: Verificar se Produto possui wishlists
+        let checkListasProdutos = await this.verificarSeProdutoEstaNaListaDesejos(idProduto)
+        if (checkListasProdutos) {
+            return res.status(400).json({ message: `O produto com id ${idProduto} não pode ser removido porque ele está inserido em uma lista de desejos.` })
+        }
+    
+        //TODO: Remove Produto pelo id
+        const produtoService = new ProdutoService()
+        let resultado = produtoService.removerProduto(idProduto)
+        return res.status(200).json({ message: `O Produto com codigo ${codigoProduto} foi deletado com suceso` })
+    }
+
+    async verificarSeProdutoEstaNaListaDesejos(idProduto) {
+        const produtoService = new ProdutoService()
+
+        let produto = await produtoService.buscarProdutoPorId(idProduto)
+        .catch(err => { 
+            console.log(err)
+            return false
+        })
+
+        //console.log(produto[0].wishlists)
+        let arrayWishlists = produto[0].wishlists
+        //console.log(arrayWishlists.length)
+
+        if(arrayWishlists.length === 0) {
+            return false
+        }
+        return true
+
     }
 }
+
+
 
 export default ProdutoController

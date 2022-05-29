@@ -52,9 +52,6 @@ class ProdutoService {
         return Produto.paginate(query, { page: pagina, limit: limite })
     }
 
-    buscarProdutoPorCodigo(_id) {
-        return Produto.findOne({_id})
-    }
 
     async buscarProdutoPorId(idProduto) {
         if (!mongoose.Types.ObjectId.isValid(idProduto)) 

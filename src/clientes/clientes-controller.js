@@ -70,7 +70,7 @@ class ClienteController {
         if (checkListasCliente) {
             return res.status(400).json({ message: `O cliente com id ${idCliente} não pode ser removido porque ele possui listas de desejos.` })
         }
-
+        //TODO: Remove Cliente pelo id
         const clienteService = new ClienteService()
         let resultado = await clienteService.removerCliente(idCliente)
         return res.status(200).json({ message: `O cliente com id ${idCliente} foi deletado com suceso` })
@@ -99,9 +99,7 @@ class ClienteController {
             return false
         })
 
-        //console.log(cliente[0].wishlists)
         let arrayWishlists = cliente[0].wishlists
-        //console.log(arrayWishlists.length)
 
         if(arrayWishlists.length === 0) {
             return false
