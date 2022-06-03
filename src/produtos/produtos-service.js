@@ -1,10 +1,11 @@
 import { ObjectId } from 'mongodb'
 import mongoose from 'mongoose'
-import config from '../config'
-
-mongoose.connect(config.connectionString)
-
 import Produto from './produtos-model'
+
+const dotenv = require("dotenv")
+dotenv.config()
+mongoose.connect(process.env.DB_URI)
+
 
 class ProdutoService {
 

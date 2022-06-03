@@ -1,12 +1,12 @@
 import mongoose from 'mongoose'
-import config from '../config'
-
-mongoose.connect(config.connectionString)
-
 import ListaDesejos from './listasDesejos-model'
 import Cliente from '../clientes/clientes-model'
 import Produto from '../produtos/produtos-model'
-import res from 'express/lib/response'
+
+const dotenv = require("dotenv")
+dotenv.config()
+mongoose.connect(process.env.DB_URI)
+
 
 class ListaDesejosService {
 
