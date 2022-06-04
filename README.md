@@ -11,6 +11,12 @@ O desafio proposto foi o de desenvolver um módulo de lista de desejos dos produ
 * Gerenciamento de produtos
 * Gerenciamento de listas de desejos
 
+## :clapper: Demonstração em Vídeo
+O vídeo abaixo demonstra as principais funcionalidades da API através de requisições realizadas com o ThunderClient, uma extensão para VS Code.
+
+https://user-images.githubusercontent.com/86008015/172000898-7dbc0075-210a-4097-8716-e42645ae0684.mp4
+
+
 ## 📖 Guia de instalação
 
 Clone este repositório utilizando o comando:
