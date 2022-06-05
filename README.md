@@ -27,6 +27,11 @@ Instale as dependências:
 ```
 npm install
 ```
+Você deve criar um arquivo ``.env`` na raiz do projeto, com o conteúdo:
+```
+DB_USERNAME=beatrizmakowski
+DB_PASSWORD=995679
+```
 
 ## 🚀 Inicializando
 
