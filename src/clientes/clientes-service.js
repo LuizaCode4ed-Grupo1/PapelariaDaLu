@@ -1,10 +1,9 @@
 import { ObjectId } from 'mongodb'
 import mongoose from 'mongoose'
 import Cliente from './clientes-model'
+import config from '../config'
 
-const dotenv = require("dotenv")
-dotenv.config()
-mongoose.connect(process.env.DB_URI)
+mongoose.connect(config.connectionString)
 
 
 class ClienteService {
