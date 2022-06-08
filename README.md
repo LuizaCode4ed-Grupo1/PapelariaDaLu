@@ -1,4 +1,6 @@
 # 📝 Papelaria da Lu 
+![status](https://img.shields.io/badge/status-finished-success) ![contributors](https://img.shields.io/github/contributors/LuizaCode4ed-Grupo1/PapelariaDaLu) 
+![size](https://img.shields.io/github/repo-size/LuizaCode4ed-Grupo1/PapelariaDaLu) ![lines](https://img.shields.io/tokei/lines/github.com/LuizaCode4ed-Grupo1/PapelariaDaLu)
 
 ## Introdução
 Projeto final desenvolvido como requisito parcial para aprovação no programa de aceleração em Node.js [Luiza Code 4ª edição.](https://conteudo.carreiras.magazineluiza.com.br/luiza-code-4-edicao-inscricao)
